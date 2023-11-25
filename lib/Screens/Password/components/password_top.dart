@@ -129,27 +129,27 @@ class _PasswordTopState extends State<PasswordTop> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                           SizedBox(
-                          width: 270,
-                          child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                          for( int b = 0; b < 3 ; b++ )
-                          SizedBox(
-                          width: 60,
-                          height: 60,
-                          child: ElevatedButton(
-                          onPressed: (){
-                          _add(numeros[(i*3)+b].toString());
-                          },
-                          style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(kPrimaryLightColor),
-                          elevation: MaterialStateProperty.all(0.0)
-                          ),
-                          child: Text(numeros[(i*3)+b].toString(), style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20, color: kPrimaryColor)),
-                          ),
-                          ),
-                          ],
-                          ),
+                              width: 270,
+                              child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                              for( int b = 0; b < 3 ; b++ )
+                                  SizedBox(
+                                  width: 60,
+                                  height: 60,
+                                      child: ElevatedButton(
+                                          onPressed: (){
+                                              _add(numeros[(i*3)+b].toString());
+                                          },
+                                          style: ButtonStyle(
+                                              backgroundColor: MaterialStateProperty.all(kGray100Color),
+                                              elevation: MaterialStateProperty.all(0.0)
+                                          ),
+                                          child: Text(numeros[(i*3)+b].toString(), style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 20, color: kPrimaryColor)),
+                                      ),
+                                  ),
+                              ],
+                              ),
                           ),
                         ],
                       ),

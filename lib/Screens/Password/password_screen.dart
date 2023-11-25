@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_auth/Screens/Password/components/password_bottom.dart';
 import 'package:flutter_auth/Screens/Password/components/password_top.dart';
 import 'package:flutter_auth/Screens/Welcome/components/login_signup_btn.dart';
 

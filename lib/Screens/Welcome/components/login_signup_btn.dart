@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_auth/Screens/Login/components/login_form.dart';
 import 'package:flutter_auth/Screens/Login/login_screen.dart';
-import 'package:flutter_auth/Screens/Password/password_screen.dart';
 
 import '../../../constants.dart';
 import '../../Signup/signup_screen.dart';
@@ -49,7 +47,7 @@ class LoginAndSignupBtn extends StatelessWidget {
             );
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: kPrimaryLightColor,
+            backgroundColor: kGray100Color,
             elevation: 0,
           ),
           child: Text(

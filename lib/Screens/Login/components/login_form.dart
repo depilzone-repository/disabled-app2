@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_auth/Screens/Especialista/especialista_screen.dart';
 
 import '../../../components/already_have_an_account_acheck.dart';
 import '../../../constants.dart';
@@ -30,17 +33,42 @@ class _LoginFormState extends State<LoginForm> {
     'phone': TextEditingController(),
     'password': TextEditingController()
   };
+  bool _hasError = false;
+
+  late FocusNode focusPasswordNode;
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    focusPasswordNode = FocusNode();
+    focusPasswordNode.addListener(() {
+      log(123123);
+    });
+
+    setState(() {
+      clave = widget.clave;
+    });
+
+    // ignore: avoid_print
+    // print('LoginForm ${widget.clave}');
+  }
+
 
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
     _ctrlPhone.dispose();
     _ctrlPassword.dispose();
+    focusPasswordNode.dispose();
+
     super.dispose();
   }
 
 
-  List numeros = [0,1,2,3,4,5,6,7,8,9];
+  List<int> numeros = [0,1,2,3,4,5,6,7,8,9];
   String clave = '';
   bool visibility = false;
 
@@ -50,32 +78,6 @@ class _LoginFormState extends State<LoginForm> {
     });
   }
 
-  void _add(String value) {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      if(clave.length == 6){
-        return;
-      }
-      clave = clave + value;
-    });
-  }
-
-  void _remove() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      clave = clave.isNotEmpty ? clave.substring(0, clave.length - 1) : '';
-    });
-  }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +85,7 @@ class _LoginFormState extends State<LoginForm> {
       key: _formKey,
       child: Column(
         children: [
-          const Text("Ingresa tus datos para continuar", textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.w600),),
+          const Text("Ingresa tus datos para continuar", textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.w600)),
           const SizedBox(height: defaultPadding / 2),
           TextFormField(
             maxLength: 9,
@@ -98,32 +100,51 @@ class _LoginFormState extends State<LoginForm> {
               counterText: "",
 
               labelText: 'Celular',
-              // The MaterialStateProperty's value is a text style that is orange
-              // by default, but the theme's error color if the input decorator
-              // is in its error state.
-              floatingLabelStyle: MaterialStateTextStyle.resolveWith(
-                    (Set<MaterialState> states) {
-                  return const TextStyle(
-                      color: kPrimaryColor,
-                      letterSpacing: 1.3,
-                      fontWeight: FontWeight.w600
-                  );
-                },
+              labelStyle: MaterialStateTextStyle.resolveWith((Set<MaterialState> states) {
+                final Color color = states.contains(MaterialState.error)
+                    ? kWarningColor
+                    : kGray500Color;
+                return TextStyle(
+                    color: color,
+                    fontWeight: FontWeight.w400
+                );
+              }),
+              floatingLabelStyle: MaterialStateTextStyle.resolveWith((Set<MaterialState> states) {
+                final Color color = states.contains(MaterialState.error)
+                    ? kWarningColor
+                    : kGray500Color;
+
+                return TextStyle(
+                    color: color,
+                    letterSpacing: 1.3,
+                    fontWeight: FontWeight.w500
+                );
+              },
               ),
 
               // hintText: "Ingresa tu teléfono",
               prefixIcon: const Padding(
                 padding: EdgeInsets.all(defaultPadding),
-                child: Icon(Icons.person),
+                child: Icon(Icons.phone),
               ),
             ),
             // The validator receives the text that the user has entered.
             validator: (value) {
               if (value == null || value.isEmpty) {
+                _hasError = true;
+
+                /// refresh the state
+                setState(() {});
+
                 return 'Es necesario completar este campo.';
               }
 
               if (value.length < 9) {
+                _hasError = true;
+
+                /// refresh the state
+                setState(() {});
+
                 return 'Es número de celular no es válido.';
               }
 
@@ -133,7 +154,7 @@ class _LoginFormState extends State<LoginForm> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: defaultPadding),
             child: TextFormField(
-
+              focusNode: focusPasswordNode,
               maxLength: 6,
               readOnly: true,
               textInputAction: TextInputAction.done,
@@ -141,20 +162,27 @@ class _LoginFormState extends State<LoginForm> {
               cursorColor: kPrimaryColor,
               controller: _ctrlPassword,
               decoration: InputDecoration(
-
                   counterText: "",
-
-                  // hintText: "Clave (6 dígitos)",
                   labelText: "Clave (6 dígitos)",
-                  // The MaterialStateProperty's value is a text style that is orange
-                  // by default, but the theme's error color if the input decorator
-                  // is in its error state.
-                  floatingLabelStyle: MaterialStateTextStyle.resolveWith(
-                        (Set<MaterialState> states) {
-                      return const TextStyle(
-                          color: kPrimaryColor,
+                  labelStyle: MaterialStateTextStyle.resolveWith((Set<MaterialState> states) {
+                    final Color color = states.contains(MaterialState.error)
+                        ? kWarningColor
+                        : kGray500Color;
+                    return TextStyle(
+                        color: color,
+                        fontWeight: FontWeight.w400
+                    );
+                  }),
+
+                  floatingLabelStyle: MaterialStateTextStyle.resolveWith((Set<MaterialState> states) {
+                      final Color color = states.contains(MaterialState.error)
+                              ? kWarningColor
+                              : kGray500Color;
+
+                      return TextStyle(
+                          color: color,
                           letterSpacing: 1.3,
-                          fontWeight: FontWeight.w600
+                          fontWeight: FontWeight.w500
                       );
                     },
                   ),
@@ -169,7 +197,7 @@ class _LoginFormState extends State<LoginForm> {
                         height: 50,
                         width: 50,
                         child: IconButton(
-                          color: Colors.black,
+                          color: kGray500Color,
                           onPressed: () => {
                             setState( () => visibility = !visibility )
                           },
@@ -179,7 +207,8 @@ class _LoginFormState extends State<LoginForm> {
                   )
               ),
               onTap: () async {
-                await showInformationDialog(context,'').then((String? val) {
+                // shuffleList();
+                await showInformationDialog(context).then((String? val) {
                   // ignore: avoid_print
                   // print(val);
                   if(val != null){
@@ -210,8 +239,8 @@ class _LoginFormState extends State<LoginForm> {
                     textAlign: TextAlign.right,
                     "¿Olvidaste tu clave?",
                     style: TextStyle(
-                      color: kPrimaryColor,
-                      fontWeight: FontWeight.bold,
+                      color: kDepilColor,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
@@ -232,10 +261,19 @@ class _LoginFormState extends State<LoginForm> {
                         content: Text('Enviando datos...'),
                         behavior: SnackBarBehavior.floating,
                     ),
-                  );
+                  ).closed.then((value) => {
+                    Navigator.push(
+                        context,
+                            MaterialPageRoute(
+                                builder: (context) {
+                                return const EspecialistaScreen();
+                            },
+                        ),
+                    )
+                  });
                 }
               },
-              child: Text(
+              child: const Text(
                 "Ingresar",
               ),
             ),
@@ -258,30 +296,23 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    setState(() {
-      clave = widget.clave;
-    });
-
-    // ignore: avoid_print
-    print('LoginForm ${widget.clave}');
-  }
-
-
 }
 
 
-Future<String?> showInformationDialog(BuildContext context, String pass) async {
+Future<String?> showInformationDialog(BuildContext context) async {
+
+  List<int> numbers = [0,1,2,3,4,5,6,7,8,9];
+  numbers.shuffle();
+
+  // numbers.shuffle();
+
   return await showDialog(
       barrierDismissible: false,
       context: context,
       builder: (context) {
 
-        String password = pass;
-        List numeros = [0,1,2,3,4,5,6,7,8,9];
+        String password = '';
+        List numeros = numbers;
 
         return StatefulBuilder(builder: (context, setState) {
           return Dialog(
@@ -336,12 +367,12 @@ Future<String?> showInformationDialog(BuildContext context, String pass) async {
                                       width: 15,
                                       height: 15,
                                       decoration: BoxDecoration(
-                                          border: Border.all(color: kPrimaryColor, width: 1),
+                                          border: Border.all(color: kDepilColor, width: 1),
                                           borderRadius: const BorderRadius.all(Radius.circular(20)),
-                                          color: password.length >= (i+1) ? kPrimaryColor : null,
+                                          color: password.length >= (i+1) ? kDepilColor : null,
                                           boxShadow: password.length >= (i+1) ? const [
                                             BoxShadow(
-                                              color: kPrimaryLightColor,
+                                              color: kDepilLightColor,
                                               spreadRadius: 3,
                                               blurRadius: 0,
                                               offset: Offset(0, 0), // changes position of shadow
@@ -395,10 +426,10 @@ Future<String?> showInformationDialog(BuildContext context, String pass) async {
                                                       });
                                                     },
                                                     style: ButtonStyle(
-                                                        backgroundColor: MaterialStateProperty.all(kPrimaryLightColor),
+                                                        backgroundColor: MaterialStateProperty.all(kGray100Color),
                                                         elevation: MaterialStateProperty.all(0.0)
                                                     ),
-                                                    child: Text(numeros[(i*3)+b].toString(), style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20, color: kPrimaryColor)),
+                                                    child: Text(numeros[(i*3)+b].toString(), style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 20, color: Colors.black)),
                                                   ),
                                                 ),
                                             ],
@@ -441,17 +472,17 @@ Future<String?> showInformationDialog(BuildContext context, String pass) async {
                                                 });
                                               },
                                               style: ButtonStyle(
-                                                  backgroundColor: MaterialStateProperty.all(kPrimaryLightColor),
+                                                  backgroundColor: MaterialStateProperty.all(kGray100Color),
                                                   elevation: MaterialStateProperty.all(0.0)
                                               ),
-                                              child: Text(numeros[9].toString(), style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 20, color: kPrimaryColor)),
+                                              child: Text(numeros[9].toString(), style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 20, color: Colors.black)),
                                             ),
                                           ),
                                           SizedBox(
                                               width: 60,
                                               height: 60,
                                               child: IconButton(
-                                                  color: kPrimaryColor,
+                                                  color: kDepilColor,
                                                   icon: const Icon(Icons.backspace),
                                                   tooltip: 'Borrar',
                                                   style: ButtonStyle(
