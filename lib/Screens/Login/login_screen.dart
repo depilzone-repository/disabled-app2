@@ -75,7 +75,7 @@ class _MobileLoginScreenState extends State<MobileLoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
         const LoginScreenTopImage(),
         Row(

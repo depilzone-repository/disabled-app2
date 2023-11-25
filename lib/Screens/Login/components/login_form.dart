@@ -83,6 +83,8 @@ class _LoginFormState extends State<LoginForm> {
       key: _formKey,
       child: Column(
         children: [
+          const Text("Ingresa tus datos para continuar", textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.w600),),
+          const SizedBox(height: defaultPadding / 2),
           TextFormField(
             maxLength: 9,
             keyboardType: TextInputType.phone,
@@ -198,6 +200,24 @@ class _LoginFormState extends State<LoginForm> {
               },
             ),
           ),
+          // const SizedBox(height: defaultPadding),
+          Row(
+            children: [
+              Expanded(
+                child: GestureDetector(
+
+                  child: const Text(
+                    textAlign: TextAlign.right,
+                    "¿Olvidaste tu clave?",
+                    style: TextStyle(
+                      color: kPrimaryColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
           const SizedBox(height: defaultPadding),
           Hero(
             tag: "login_btn",
@@ -216,7 +236,7 @@ class _LoginFormState extends State<LoginForm> {
                 }
               },
               child: Text(
-                "Login".toUpperCase(),
+                "Ingresar",
               ),
             ),
           ),
