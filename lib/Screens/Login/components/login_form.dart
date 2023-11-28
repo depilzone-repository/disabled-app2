@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_auth/Screens/Especialista/especialista_screen.dart';
+import 'package:flutter_auth/Screens/Home/home_screen.dart';
 
 import '../../../components/already_have_an_account_acheck.dart';
 import '../../../constants.dart';
@@ -86,7 +87,7 @@ class _LoginFormState extends State<LoginForm> {
       child: Column(
         children: [
           const Text("Ingresa tus datos para continuar", textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.w600)),
-          const SizedBox(height: defaultPadding / 2),
+          const SizedBox(height: defaultPadding),
           TextFormField(
             maxLength: 9,
             keyboardType: TextInputType.phone,
@@ -152,7 +153,7 @@ class _LoginFormState extends State<LoginForm> {
             },
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: defaultPadding),
+            padding: const EdgeInsets.symmetric(vertical: defaultPadding * 2),
             child: TextFormField(
               focusNode: focusPasswordNode,
               maxLength: 6,
@@ -260,13 +261,14 @@ class _LoginFormState extends State<LoginForm> {
                     const SnackBar(
                         content: Text('Enviando datos...'),
                         behavior: SnackBarBehavior.floating,
+                        duration: Duration(seconds: 1),
                     ),
                   ).closed.then((value) => {
                     Navigator.push(
                         context,
                             MaterialPageRoute(
                                 builder: (context) {
-                                return const EspecialistaScreen();
+                                return const HomeScreen();
                             },
                         ),
                     )
@@ -406,8 +408,8 @@ Future<String?> showInformationDialog(BuildContext context) async {
                                             children: [
                                               for( int b = 0; b < 3 ; b++ )
                                                 SizedBox(
-                                                  width: 60,
-                                                  height: 60,
+                                                  width: 70,
+                                                  height: 70,
                                                   child: ElevatedButton(
                                                     onPressed: (){
                                                       if(password.length == 6){
@@ -429,7 +431,7 @@ Future<String?> showInformationDialog(BuildContext context) async {
                                                         backgroundColor: MaterialStateProperty.all(kGray100Color),
                                                         elevation: MaterialStateProperty.all(0.0)
                                                     ),
-                                                    child: Text(numeros[(i*3)+b].toString(), style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 20, color: Colors.black)),
+                                                    child: Text(numeros[(i*3)+b].toString(), style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 22 , color: Colors.black)),
                                                   ),
                                                 ),
                                             ],
@@ -452,8 +454,8 @@ Future<String?> showInformationDialog(BuildContext context) async {
                                         children: [
                                           const SizedBox(width: 60,height: 60),
                                           SizedBox(
-                                            width: 60,
-                                            height: 60,
+                                            width: 70,
+                                            height: 70,
                                             child: ElevatedButton(
                                               onPressed: (){
                                                 if(password.length == 6){
@@ -475,12 +477,12 @@ Future<String?> showInformationDialog(BuildContext context) async {
                                                   backgroundColor: MaterialStateProperty.all(kGray100Color),
                                                   elevation: MaterialStateProperty.all(0.0)
                                               ),
-                                              child: Text(numeros[9].toString(), style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 20, color: Colors.black)),
+                                              child: Text(numeros[9].toString(), style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 22, color: Colors.black)),
                                             ),
                                           ),
                                           SizedBox(
-                                              width: 60,
-                                              height: 60,
+                                              width: 70,
+                                              height: 70,
                                               child: IconButton(
                                                   color: kDepilColor,
                                                   icon: const Icon(Icons.backspace),
