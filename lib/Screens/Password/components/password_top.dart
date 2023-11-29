@@ -5,8 +5,8 @@ import '../../../constants.dart';
 class PasswordTop extends StatefulWidget {
 
   const PasswordTop({
-    Key? key, required this.clave
-  }) : super(key: key);
+    super.key, required this.clave
+  });
   final String clave;
 
   @override

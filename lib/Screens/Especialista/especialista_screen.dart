@@ -3,11 +3,9 @@ import 'package:flutter_auth/constants.dart';
 import 'package:flutter_auth/responsive.dart';
 
 import '../../components/background.dart';
-import '../Login/components/login_form.dart';
-import '../Login/components/login_screen_top_image.dart';
 
 class EspecialistaScreen extends StatefulWidget {
-  const EspecialistaScreen({Key? key}) :  super(key: key);
+  const EspecialistaScreen({super.key});
 
   @override
   State<EspecialistaScreen> createState() => _EspecialistaScreenState();
@@ -43,8 +41,8 @@ class _EspecialistaScreenState extends State<EspecialistaScreen> {
 
 class MobileEspecialistaScreen extends StatefulWidget {
   const MobileEspecialistaScreen({
-    Key? key
-  }) : super(key: key);
+    super.key
+  });
 
   @override
   State<MobileEspecialistaScreen> createState() => _MobileEspecialistaScreenState();
@@ -80,7 +78,7 @@ class _MobileEspecialistaScreenState extends State<MobileEspecialistaScreen> {
                           borderRadius: BorderRadius.circular(20.0)
                       ),
                       child:  Padding(
-                        padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                        padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -246,7 +244,7 @@ class _MobileEspecialistaScreenState extends State<MobileEspecialistaScreen> {
             )
           ],
         ),
-        Card(
+        const Card(
           child: Column(
             children: [
               Text("Hola")

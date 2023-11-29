@@ -6,7 +6,7 @@ import '../../components/background.dart';
 import '../../responsive.dart';
 
 class PasswordScreen extends StatelessWidget {
-  const PasswordScreen({Key? key, required String clave}) : super(key: key);
+  const PasswordScreen({super.key, required String clave});
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +43,8 @@ class PasswordScreen extends StatelessWidget {
 
 class MobilePasswordScreen extends StatelessWidget {
   const MobilePasswordScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

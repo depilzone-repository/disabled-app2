@@ -6,7 +6,7 @@ import 'components/login_form.dart';
 import 'components/login_screen_top_image.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key, required this.clave}) :  super(key: key);
+  const LoginScreen({super.key, required this.clave});
   final String clave;
 
   @override
@@ -60,8 +60,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
 class MobileLoginScreen extends StatefulWidget {
   const MobileLoginScreen({
-    Key? key, required this.clave
-  }) : super(key: key);
+    super.key, required this.clave
+  });
   final String clave;
 
   @override

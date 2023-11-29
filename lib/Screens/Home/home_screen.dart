@@ -1,13 +1,14 @@
+
 import 'package:flutter/material.dart';
+import 'package:flutter_auth/Screens/Home/descuentos.dart';
 import 'package:flutter_auth/constants.dart';
 import 'package:flutter_auth/responsive.dart';
 
 import '../../components/background.dart';
 
-import 'package:carousel_slider/carousel_slider.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) :  super(key: key);
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -43,8 +44,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
 class MobileHomeScreen extends StatefulWidget {
   const MobileHomeScreen({
-    Key? key
-  }) : super(key: key);
+    super.key
+  });
 
   @override
   State<MobileHomeScreen> createState() => _MobileHomeScreenState();
@@ -57,467 +58,86 @@ class _MobileHomeScreenState extends State<MobileHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      height: MediaQuery.of(context).size.height,
+      color: kGray200Color,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          SizedBox(
-            height: 200,
-            child: ListView(
-              children: [
-                CarouselSlider(
-                  items: [
-                    Container(
-                      height: MediaQuery.of(context).size.height,
-                      width: 350,
-                      padding: const EdgeInsets.all(defaultPadding) ,
-                      margin: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        image: const DecorationImage(
-                          image: AssetImage(
-                              'backgrounds/aqua-marine.png'),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      child: const Row(
-                          children: [
-                              Icon(
-                                  Icons.qr_code_rounded,
-                                  color: Colors.white,
-                                  size: 50,
-                                  weight: 1.0,
-                              ),
-                              Expanded(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                          "50% descuento en zonas intimas",
-                                          style: TextStyle(
-                                            color: Colors.white
-                                          ),
-                                      )
-                                    ],
+          Container(
+            padding: const EdgeInsets.fromLTRB(defaultPadding, defaultPadding, defaultPadding, defaultPadding*3),
+            decoration: const BoxDecoration(
+              color: kDepilColor,
+            ),
+            child: RichText(
+              textAlign: TextAlign.center,
+              text: const TextSpan(
+                text: '!Hola, ',
+                style: TextStyle(color: Colors.white, fontSize: 24, fontFamily: 'Poppins'),
+                children: <TextSpan>[
+                  TextSpan(
+                    text: 'Yosel',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500
+                    ),
+                  ),
+                  TextSpan(
+                    text: '!',
+                  ),
+                ],
+              ),
+            )
+          ),
+          // const SizedBox(
+          //   child: Descuentos()
+          // ),
+
+          Transform.translate(
+              offset: const Offset(0, -defaultPadding*2),
+              child: Container(
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Container(
+                              child: SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        for(int i = 0; i < 7; i++)
+                                          boxPromociones(7, i)
+                                      ]
                                   )
                               )
-                          ]
-                      ),
-                    ),
-                    Container(
-                      height: MediaQuery.of(context).size.height,
-                      width: 350,
-                      padding: const EdgeInsets.all(defaultPadding) ,
-                      margin: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        image: const DecorationImage(
-                          image: AssetImage(
-                              'backgrounds/aqua-marine.png'),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      child: Text("1"),
-                    ),
-                    Container(
-                      height: MediaQuery.of(context).size.height,
-                      width: 350,
-                      padding: const EdgeInsets.all(defaultPadding) ,
-                      margin: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        image: const DecorationImage(
-                          image: AssetImage(
-                              'backgrounds/aqua-marine.png'),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      child: Text("1"),
-                    ),
-
-
-                  ],
-                  options: CarouselOptions(
-                    height: 100,
-                    enlargeCenterPage: true,
-                    autoPlay: true,
-                    aspectRatio: 16 / 9,
-                    autoPlayCurve: Curves.fastOutSlowIn,
-                    enableInfiniteScroll: true,
-                    autoPlayAnimationDuration: Duration(milliseconds: 800),
-                    viewportFraction: 1,
-                  ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.fromLTRB(0 , defaultPadding, 0 , 0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Padding(
+                                    padding: EdgeInsets.fromLTRB(defaultPadding, 0, 0, 0),
+                                    child: Text("Hay 7 box libres", style: TextStyle(fontWeight: FontWeight.w500, color: kGray600Color, fontSize: 16)),
+                                ),
+                                Container(
+                                    child: SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          for(int i = 0; i < 7; i++)
+                                            BoxButton(7, i)
+                                        ],
+                                      ),
+                                    )
+                                )
+                              ],
+                            ),
+                          ),
+                        ]
+                    )
                 ),
-                CarouselSlider(
-                  items: [
-                    Container(
-                      height: MediaQuery.of(context).size.height,
-                      width: 350,
-                      padding: const EdgeInsets.all(defaultPadding) ,
-                      margin: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        image: const DecorationImage(
-                          image: AssetImage(
-                              'backgrounds/aqua-marine.png'),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      child: Text("1"),
-                    ),
-                    Container(
-                      height: MediaQuery.of(context).size.height,
-                      width: 350,
-                      padding: const EdgeInsets.all(defaultPadding) ,
-                      margin: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        image: const DecorationImage(
-                          image: AssetImage(
-                              'backgrounds/aqua-marine.png'),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      child: Text("1"),
-                    ),
-                    Container(
-                      height: MediaQuery.of(context).size.height,
-                      width: 350,
-                      padding: const EdgeInsets.all(defaultPadding) ,
-                      margin: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        image: const DecorationImage(
-                          image: AssetImage(
-                              'backgrounds/aqua-marine.png'),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      child: Text("1"),
-                    ),
-
-
-                  ],
-                  options: CarouselOptions(
-                    height: 100,
-                    enlargeCenterPage: true,
-                    autoPlay: true,
-                    aspectRatio: 16 / 9,
-                    autoPlayCurve: Curves.fastOutSlowIn,
-                    enableInfiniteScroll: true,
-                    autoPlayAnimationDuration: Duration(milliseconds: 800),
-                    viewportFraction: 1,
-                  ),
-                ),
-                CarouselSlider(
-                  items: [
-                    Container(
-                      height: MediaQuery.of(context).size.height,
-                      width: 350,
-                      padding: const EdgeInsets.all(defaultPadding) ,
-                      margin: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        image: const DecorationImage(
-                          image: AssetImage(
-                              'backgrounds/aqua-marine.png'),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      child: Text("1"),
-                    ),
-                    Container(
-                      height: MediaQuery.of(context).size.height,
-                      width: 350,
-                      padding: const EdgeInsets.all(defaultPadding) ,
-                      margin: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        image: const DecorationImage(
-                          image: AssetImage(
-                              'backgrounds/aqua-marine.png'),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      child: Text("1"),
-                    ),
-                    Container(
-                      height: MediaQuery.of(context).size.height,
-                      width: 350,
-                      padding: const EdgeInsets.all(defaultPadding) ,
-                      margin: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        image: const DecorationImage(
-                          image: AssetImage(
-                              'backgrounds/aqua-marine.png'),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      child: Text("1"),
-                    ),
-
-
-                  ],
-                  options: CarouselOptions(
-                    height: 100,
-                    enlargeCenterPage: true,
-                    autoPlay: true,
-                    aspectRatio: 16 / 9,
-                    autoPlayCurve: Curves.fastOutSlowIn,
-                    enableInfiniteScroll: true,
-                    autoPlayAnimationDuration: Duration(milliseconds: 800),
-                    viewportFraction: 1,
-                  ),
-                ),
-                CarouselSlider(
-                  items: [
-                    Container(
-                      height: MediaQuery.of(context).size.height,
-                      width: 350,
-                      padding: const EdgeInsets.all(defaultPadding) ,
-                      margin: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        image: const DecorationImage(
-                          image: AssetImage(
-                              'backgrounds/aqua-marine.png'),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      child: Text("1"),
-                    ),
-                    Container(
-                      height: MediaQuery.of(context).size.height,
-                      width: 350,
-                      padding: const EdgeInsets.all(defaultPadding) ,
-                      margin: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        image: const DecorationImage(
-                          image: AssetImage(
-                              'backgrounds/aqua-marine.png'),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      child: Text("1"),
-                    ),
-                    Container(
-                      height: MediaQuery.of(context).size.height,
-                      width: 350,
-                      padding: const EdgeInsets.all(defaultPadding) ,
-                      margin: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        image: const DecorationImage(
-                          image: AssetImage(
-                              'backgrounds/aqua-marine.png'),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      child: Text("1"),
-                    ),
-
-
-                  ],
-                  options: CarouselOptions(
-                    height: 100,
-                    enlargeCenterPage: true,
-                    autoPlay: true,
-                    aspectRatio: 16 / 9,
-                    autoPlayCurve: Curves.fastOutSlowIn,
-                    enableInfiniteScroll: true,
-                    autoPlayAnimationDuration: Duration(milliseconds: 800),
-                    viewportFraction: 1,
-                  ),
-                ),
-                CarouselSlider(
-                  items: [
-                    Container(
-                      height: MediaQuery.of(context).size.height,
-                      width: 350,
-                      padding: const EdgeInsets.all(defaultPadding) ,
-                      margin: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        image: const DecorationImage(
-                          image: AssetImage(
-                              'backgrounds/aqua-marine.png'),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      child: Text("1"),
-                    ),
-                    Container(
-                      height: MediaQuery.of(context).size.height,
-                      width: 350,
-                      padding: const EdgeInsets.all(defaultPadding) ,
-                      margin: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        image: const DecorationImage(
-                          image: AssetImage(
-                              'backgrounds/aqua-marine.png'),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      child: Text("1"),
-                    ),
-                    Container(
-                      height: MediaQuery.of(context).size.height,
-                      width: 350,
-                      padding: const EdgeInsets.all(defaultPadding) ,
-                      margin: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        image: const DecorationImage(
-                          image: AssetImage(
-                              'backgrounds/aqua-marine.png'),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      child: Text("1"),
-                    ),
-
-
-                  ],
-                  options: CarouselOptions(
-                    height: 100,
-                    enlargeCenterPage: true,
-                    autoPlay: true,
-                    aspectRatio: 16 / 9,
-                    autoPlayCurve: Curves.fastOutSlowIn,
-                    enableInfiniteScroll: true,
-                    autoPlayAnimationDuration: Duration(milliseconds: 800),
-                    viewportFraction: 1,
-                  ),
-                ),
-                CarouselSlider(
-                  items: [
-                    Container(
-                      height: MediaQuery.of(context).size.height,
-                      width: 350,
-                      padding: const EdgeInsets.all(defaultPadding) ,
-                      margin: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        image: const DecorationImage(
-                          image: AssetImage(
-                              'backgrounds/aqua-marine.png'),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      child: Text("1"),
-                    ),
-                    Container(
-                      height: MediaQuery.of(context).size.height,
-                      width: 350,
-                      padding: const EdgeInsets.all(defaultPadding) ,
-                      margin: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        image: const DecorationImage(
-                          image: AssetImage(
-                              'backgrounds/aqua-marine.png'),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      child: Text("1"),
-                    ),
-                    Container(
-                      height: MediaQuery.of(context).size.height,
-                      width: 350,
-                      padding: const EdgeInsets.all(defaultPadding) ,
-                      margin: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        image: const DecorationImage(
-                          image: AssetImage(
-                              'backgrounds/aqua-marine.png'),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      child: Text("1"),
-                    ),
-
-
-                  ],
-                  options: CarouselOptions(
-                    height: 100,
-                    enlargeCenterPage: true,
-                    autoPlay: true,
-                    aspectRatio: 16 / 9,
-                    autoPlayCurve: Curves.fastOutSlowIn,
-                    enableInfiniteScroll: true,
-                    autoPlayAnimationDuration: Duration(milliseconds: 800),
-                    viewportFraction: 1,
-                  ),
-                ),
-                CarouselSlider(
-                  items: [
-                    Container(
-                      height: MediaQuery.of(context).size.height,
-                      width: 350,
-                      padding: const EdgeInsets.all(defaultPadding) ,
-                      margin: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        image: const DecorationImage(
-                          image: AssetImage(
-                              'backgrounds/aqua-marine.png'),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      child: Text("1"),
-                    ),
-                    Container(
-                      height: MediaQuery.of(context).size.height,
-                      width: 350,
-                      padding: const EdgeInsets.all(defaultPadding) ,
-                      margin: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        image: const DecorationImage(
-                          image: AssetImage(
-                              'backgrounds/aqua-marine.png'),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      child: Text("1"),
-                    ),
-                    Container(
-                      height: MediaQuery.of(context).size.height,
-                      width: 350,
-                      padding: const EdgeInsets.all(defaultPadding) ,
-                      margin: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        image: const DecorationImage(
-                          image: AssetImage(
-                              'backgrounds/aqua-marine.png'),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      child: Text("1"),
-                    ),
-
-
-                  ],
-                  options: CarouselOptions(
-                    height: 100,
-                    enlargeCenterPage: true,
-                    autoPlay: true,
-                    aspectRatio: 16 / 9,
-                    autoPlayCurve: Curves.fastOutSlowIn,
-                    enableInfiniteScroll: true,
-                    autoPlayAnimationDuration: Duration(milliseconds: 800),
-                    viewportFraction: 1,
-                  ),
-                ),
-              ],
-            ),
           ),
-
         ],
       )
     );
@@ -529,6 +149,57 @@ class _MobileHomeScreenState extends State<MobileHomeScreen> {
     super.initState();
     // ignore: avoid_print
   }
+}
+
+
+
+
+
+Widget BoxButton(int lenght, int index){
+  return Container(
+      margin: EdgeInsets.fromLTRB(defaultPadding, 0, ((lenght - 1) == index) ? defaultPadding : 0, defaultPadding),
+      // width: 80,
+      alignment: Alignment.center,
+      child: OutlinedButton(
+          onPressed: () async{
+
+          },
+          style: OutlinedButton.styleFrom(
+              elevation: 0.0,
+              backgroundColor: Colors.indigo,
+              surfaceTintColor: Colors.transparent,
+              side: const BorderSide(
+                  width: 2,
+                  color: Colors.indigo
+              ),
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10))
+              )
+          ),
+          child: Text(
+              'Box ${index.toString().padLeft(2, '0')}',
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 16
+              )
+          )
+      )
+  );
+}
+
+
+Widget boxPromociones(int lenght, int index){
+  return Container(
+      padding:  const EdgeInsets.fromLTRB(defaultPadding*2, defaultPadding*2, defaultPadding*2, defaultPadding),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.all(Radius.circular(30))
+      ),
+      margin: EdgeInsets.fromLTRB(defaultPadding, 0, ((lenght-1) == index) ? defaultPadding : 0 , defaultPadding),
+      width: 280,
+      alignment: Alignment.center,
+      child: const Descuentos()
+  );
 }
 
 

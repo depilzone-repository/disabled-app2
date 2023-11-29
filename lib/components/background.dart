@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_auth/Screens/Welcome/welcome_screen.dart';
 import 'package:flutter_auth/constants.dart';
 
 class Background extends StatefulWidget {
   final Widget child;
 
   const Background({
-    Key? key,
+    super.key,
     required this.child,
     this.topImage = "assets/images/main_top.png",
     this.bottomImage = "assets/images/login_bottom.png",
-  }) : super(key: key);
+  });
 
   final String topImage, bottomImage;
 
@@ -71,17 +72,17 @@ class _BackgroundState extends State<Background>{
             //     )
             //   ],
             // ),
-            const Expanded(
-              child: Text(
-                'Hola, Yosel Edwin',
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.white
-                ),
-              ),
-            )
+            // const Expanded(
+            //   child: Text(
+            //     'Hola, Yosel Edwin',
+            //     textAlign: TextAlign.left,
+            //     style: TextStyle(
+            //       fontSize: 16,
+            //       fontWeight: FontWeight.w400,
+            //       color: Colors.white
+            //     ),
+            //   ),
+            // )
           ],
         ),
         automaticallyImplyLeading: false,
@@ -116,17 +117,16 @@ class _BackgroundState extends State<Background>{
               child: Text('Drawer Header'),
             ),
             ListTile(
-              title: const Text('Item 1'),
+              title: const Text('Cerrar Sesión'),
               onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              title: const Text('Item 2'),
-              onTap: () {
-                // Update the state of the app.
-                // ...
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const WelcomeScreen();
+                    },
+                  ),
+                );
               },
             ),
           ],

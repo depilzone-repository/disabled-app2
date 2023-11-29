@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class PasswordBottom extends StatelessWidget {
   const PasswordBottom({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

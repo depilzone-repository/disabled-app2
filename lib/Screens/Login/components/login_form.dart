@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_auth/Screens/Especialista/especialista_screen.dart';
 import 'package:flutter_auth/Screens/Home/home_screen.dart';
 
 import '../../../components/already_have_an_account_acheck.dart';
@@ -10,8 +9,8 @@ import '../../Signup/signup_screen.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({
-    Key? key, required this.clave
-  }) : super(key: key);
+    super.key, required this.clave
+  });
 
   final String clave;
 

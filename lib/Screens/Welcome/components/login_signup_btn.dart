@@ -7,8 +7,8 @@ import '../../Signup/signup_screen.dart';
 class LoginAndSignupBtn extends StatelessWidget {
 
   const LoginAndSignupBtn({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   void columnFunction(){
     print('dd');
