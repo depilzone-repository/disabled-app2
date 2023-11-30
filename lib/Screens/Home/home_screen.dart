@@ -59,7 +59,15 @@ class _MobileHomeScreenState extends State<MobileHomeScreen> {
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height,
-      color: kGray200Color,
+      // color: kGray200Color,
+      decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xff03b7f9), Color(0xff03466b)],
+            stops: [0.1, 1],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          )
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -67,7 +75,7 @@ class _MobileHomeScreenState extends State<MobileHomeScreen> {
           Container(
             padding: const EdgeInsets.fromLTRB(defaultPadding, defaultPadding, defaultPadding, defaultPadding*3),
             decoration: const BoxDecoration(
-              color: kDepilColor,
+              // color: kDepilColor,
             ),
             child: RichText(
               textAlign: TextAlign.center,
@@ -92,51 +100,76 @@ class _MobileHomeScreenState extends State<MobileHomeScreen> {
           //   child: Descuentos()
           // ),
 
-          Transform.translate(
-              offset: const Offset(0, -defaultPadding*2),
-              child: Container(
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Container(
-                              child: SingleChildScrollView(
+          Expanded(
+            child: Container(
+                color: kGray100Color,
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Container(
+                          padding: const EdgeInsets.fromLTRB(0, defaultPadding, 0, defaultPadding),
+                          child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    for(int i = 0; i < 7; i++)
+                                      boxPromociones(7, i)
+                                  ]
+                              )
+                          )
+                      ),
+                      Container(
+                        padding: const EdgeInsets.fromLTRB(0 , defaultPadding, 0 , 0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(defaultPadding, 0, 0, 0),
+                              child: Text("Box disponibles 7/4", style: TextStyle(fontWeight: FontWeight.w500, color: kGray600Color, fontSize: 16)),
+                            ),
+                            SizedBox(height: defaultPadding),
+                            Container(
+                                child: SingleChildScrollView(
                                   scrollDirection: Axis.horizontal,
                                   child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        for(int i = 0; i < 7; i++)
-                                          boxPromociones(7, i)
-                                      ]
-                                  )
-                              )
-                          ),
-                          Container(
-                            padding: const EdgeInsets.fromLTRB(0 , defaultPadding, 0 , 0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      for(int i = 0; i < 7; i++)
+                                        BoxButton(7, (i+1))
+                                    ],
+                                  ),
+                                )
+                            )
+                          ],
+                        ),
+                      ),
+                        Container(
+                            padding:  const EdgeInsets.fromLTRB(defaultPadding*2, defaultPadding*2, defaultPadding*2, defaultPadding),
+                            margin:  const EdgeInsets.fromLTRB(defaultPadding, 0, defaultPadding, 0),
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(Radius.circular(30))
+                            ),
+                            alignment: Alignment.center,
+                            child: const Row(
                               children: [
-                                Padding(
-                                    padding: EdgeInsets.fromLTRB(defaultPadding, 0, 0, 0),
-                                    child: Text("Hay 7 box libres", style: TextStyle(fontWeight: FontWeight.w500, color: kGray600Color, fontSize: 16)),
-                                ),
-                                Container(
-                                    child: SingleChildScrollView(
-                                      scrollDirection: Axis.horizontal,
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          for(int i = 0; i < 7; i++)
-                                            BoxButton(7, i)
-                                        ],
-                                      ),
+                                Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                                      children: [
+                                        Text("Nombre: ", style: TextStyle(fontWeight: FontWeight.w500, color: kGray600Color, fontSize: 16)),
+                                        Text("Hora Cita: ", style: TextStyle(fontWeight: FontWeight.w500, color: kGray600Color, fontSize: 16)),
+                                        Text("Servicio: ", style: TextStyle(fontWeight: FontWeight.w500, color: kGray600Color, fontSize: 16)),
+                                      ],
                                     )
                                 )
                               ],
-                            ),
-                          ),
-                        ]
-                    )
-                ),
+                            )
+                        )
+                    ]
+                )
+            )
           ),
         ],
       )
@@ -157,33 +190,88 @@ class _MobileHomeScreenState extends State<MobileHomeScreen> {
 
 Widget BoxButton(int lenght, int index){
   return Container(
-      margin: EdgeInsets.fromLTRB(defaultPadding, 0, ((lenght - 1) == index) ? defaultPadding : 0, defaultPadding),
-      // width: 80,
-      alignment: Alignment.center,
-      child: OutlinedButton(
-          onPressed: () async{
-
-          },
-          style: OutlinedButton.styleFrom(
-              elevation: 0.0,
-              backgroundColor: Colors.indigo,
-              surfaceTintColor: Colors.transparent,
-              side: const BorderSide(
-                  width: 2,
-                  color: Colors.indigo
+      //padding: EdgeInsets.fromLTRB(defaultPadding, defaultPadding, defaultPadding, defaultPadding),
+      margin: EdgeInsets.fromLTRB(defaultPadding, 0, (lenght == index) ? defaultPadding : 0, defaultPadding),
+      width: 240,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15),
+        gradient: index % 2 == 0 ? LinearGradient(colors: [kDepilColor, Colors.indigo]) : null,
+      ),
+      child: ElevatedButton(
+        style: OutlinedButton.styleFrom(
+            backgroundColor: index % 2 == 0 ? Colors.transparent : null,
+            maximumSize: Size.fromHeight(80),
+            padding: EdgeInsets.fromLTRB(defaultPadding + 10, defaultPadding/2, defaultPadding + 10, defaultPadding/2),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(15))
+            )
+        ),
+        onPressed: index % 2 == 0 ? (){} : null,
+        child: Row(
+          children: [
+              Opacity(
+                  opacity: index % 2 == 0 ? 1.0 : 0.5,
+                  child: Image.asset(
+                    index % 2 == 0 ? 'assets/images/door_open.png' : 'assets/images/door_close.png',
+                    width: 50,
+                  )
               ),
-              shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10))
+              Expanded(
+                  child: Container(
+                      padding: const EdgeInsets.fromLTRB(defaultPadding, 0, defaultPadding, 0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text("Box ${index.toString().padLeft(2,'0')}", style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w600)),
+                          Text(index % 2 == 0 ? "Disponible" : "Ocupado", style: TextStyle(color: Colors.white, fontSize: 12)),
+                          // Text("Servicios:  ${index.toString().padLeft(2,'0')}", style: TextStyle(color: Colors.white)),
+                        ],
+                      )
+                  )
               )
-          ),
-          child: Text(
-              'Box ${index.toString().padLeft(2, '0')}',
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16
-              )
+          ],
+        ),
+      ),
+  );
+}
+
+Widget BoxButtonSkeleton(int lenght, int index){
+  return Container(
+    //padding: EdgeInsets.fromLTRB(defaultPadding, defaultPadding, defaultPadding, defaultPadding),
+    margin: EdgeInsets.fromLTRB(defaultPadding, 0, (lenght == index) ? defaultPadding : 0, defaultPadding),
+    width: 280,
+    child: ElevatedButton(
+      style: OutlinedButton.styleFrom(
+          maximumSize: Size.fromHeight(80),
+          padding: EdgeInsets.fromLTRB(defaultPadding + 10, defaultPadding/2, defaultPadding + 10, defaultPadding/2),
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(15))
           )
-      )
+      ),
+      onPressed: index % 2 == 0 ? (){} : null,
+      child: Row(
+        children: [
+          Image.asset( index % 2 == 0 ? 'assets/images/door_open.png' : 'assets/images/door_close.png', width: 50,),
+          Expanded(
+              child: Container(
+                  padding: const EdgeInsets.fromLTRB(defaultPadding, 0, 0, 0),
+                  child: Column(
+
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text("Box ${index.toString().padLeft(2,'0')}", style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w600)),
+                      Text(index % 2 == 0 ? "Disponible" : "Ocupado", style: TextStyle(color: Colors.white, fontSize: 12)),
+                      // Text("Servicios:  ${index.toString().padLeft(2,'0')}", style: TextStyle(color: Colors.white)),
+                    ],
+                  )
+              )
+
+          )
+        ],
+      ),
+    ),
   );
 }
 
@@ -200,6 +288,32 @@ Widget boxPromociones(int lenght, int index){
       alignment: Alignment.center,
       child: const Descuentos()
   );
+}
+
+
+
+class MyCustomClipper  extends CustomClipper<Path>{
+  @override
+  getClip(Size size){
+    double w = size.width;
+    double h = size.height;
+
+    final path = Path();
+    path.moveTo(0,0);
+    path.lineTo(0, h);
+    path.quadraticBezierTo(size.width*0.5,size.height-100,size.width*0.2625000,size.height*0.6660000);
+    path.lineTo(h, w);
+    path.lineTo(w, 0);
+
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    // TODO: implement shouldReclip
+    throw UnimplementedError();
+  }
 }
 
 
