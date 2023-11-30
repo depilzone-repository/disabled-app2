@@ -124,11 +124,11 @@ class _MobileHomeScreenState extends State<MobileHomeScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            Padding(
+                            const Padding(
                               padding: EdgeInsets.fromLTRB(defaultPadding, 0, 0, 0),
                               child: Text("Box disponibles 7/4", style: TextStyle(fontWeight: FontWeight.w500, color: kGray600Color, fontSize: 16)),
                             ),
-                            SizedBox(height: defaultPadding),
+                            const SizedBox(height: defaultPadding),
                             Container(
                                 child: SingleChildScrollView(
                                   scrollDirection: Axis.horizontal,
@@ -136,7 +136,7 @@ class _MobileHomeScreenState extends State<MobileHomeScreen> {
                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     children: [
                                       for(int i = 0; i < 7; i++)
-                                        BoxButton(7, (i+1))
+                                        BoxButton(7, (i+1), context)
                                     ],
                                   ),
                                 )
@@ -188,25 +188,94 @@ class _MobileHomeScreenState extends State<MobileHomeScreen> {
 
 
 
-Widget BoxButton(int lenght, int index){
+Widget BoxButton(int lenght, int index, BuildContext context){
   return Container(
       //padding: EdgeInsets.fromLTRB(defaultPadding, defaultPadding, defaultPadding, defaultPadding),
       margin: EdgeInsets.fromLTRB(defaultPadding, 0, (lenght == index) ? defaultPadding : 0, defaultPadding),
       width: 240,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        gradient: index % 2 == 0 ? LinearGradient(colors: [kDepilColor, Colors.indigo]) : null,
+        gradient: index % 2 == 0 ? const LinearGradient(colors: [kDepilColor, Colors.indigo]) : null,
       ),
       child: ElevatedButton(
         style: OutlinedButton.styleFrom(
             backgroundColor: index % 2 == 0 ? Colors.transparent : null,
-            maximumSize: Size.fromHeight(80),
-            padding: EdgeInsets.fromLTRB(defaultPadding + 10, defaultPadding/2, defaultPadding + 10, defaultPadding/2),
+            maximumSize: const Size.fromHeight(80),
+            padding: const EdgeInsets.fromLTRB(defaultPadding + 10, defaultPadding/2, defaultPadding + 10, defaultPadding/2),
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(15))
             )
         ),
-        onPressed: index % 2 == 0 ? (){} : null,
+        onPressed: index % 2 == 0 ? (){
+            showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                constraints: BoxConstraints(
+                    maxHeight: MediaQuery.of(context).size.height - 100
+                ),
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(20),
+                      topLeft: Radius.circular(20)),
+                ),
+                builder: (_) {
+                  return DraggableScrollableSheet(
+                      expand: false,
+                      builder: (_, controller) {
+                        return ClipRRect(
+                            borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0)),
+                            child: Container(
+                                color: Colors.white,
+                                child: Column(
+                                    children: [
+                                      ListTile(
+                                          contentPadding: EdgeInsets.all(defaultPadding),
+                                          leading: Material(
+                                            color: Colors.transparent,
+                                            child: InkWell(
+                                                onTap: (){
+                                                  Navigator.of(context).pop();
+                                                },
+                                                child: Icon(Icons.arrow_back) // the arrow back icon
+                                            ),
+                                          ),
+                                          title: const Center(
+                                              child: Text(
+                                                  "Clientes en espera",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.w500
+                                                  ),
+                                              ) // Your desired title
+                                          )
+                                      ),
+                                      Expanded(
+                                          child: Container(
+                                              padding: EdgeInsets.fromLTRB(defaultPadding*2, defaultPadding, defaultPadding*2, defaultPadding),
+                                              child: ListView.builder(
+                                                  itemCount: 3,
+                                                  controller: controller, // set this too
+                                                  itemBuilder: (_, i) => Card(
+                                                    elevation: 0,
+                                                    child: ListTile(
+                                                      leading: FlutterLogo(size: 56.0),
+                                                      title: Text('Pepe Lucho ${(i+1).toString().padLeft(2,'0')}'),
+                                                      subtitle: Text('En espera', style: TextStyle(fontSize: 14),),
+                                                      trailing: Icon(Icons.more_vert),
+                                                    ),
+                                                  )
+                                              ),
+                                          )
+                                      )
+                                    ]
+                                )
+                            )
+                        );
+                      },
+                  );
+                },
+            );
+        } : null,
         child: Row(
           children: [
               Opacity(
@@ -223,8 +292,8 @@ Widget BoxButton(int lenght, int index){
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          Text("Box ${index.toString().padLeft(2,'0')}", style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w600)),
-                          Text(index % 2 == 0 ? "Disponible" : "Ocupado", style: TextStyle(color: Colors.white, fontSize: 12)),
+                          Text("Box ${index.toString().padLeft(2,'0')}", style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w600)),
+                          Text(index % 2 == 0 ? "Disponible" : "Ocupado", style: const TextStyle(color: Colors.white, fontSize: 12)),
                           // Text("Servicios:  ${index.toString().padLeft(2,'0')}", style: TextStyle(color: Colors.white)),
                         ],
                       )
@@ -243,8 +312,8 @@ Widget BoxButtonSkeleton(int lenght, int index){
     width: 280,
     child: ElevatedButton(
       style: OutlinedButton.styleFrom(
-          maximumSize: Size.fromHeight(80),
-          padding: EdgeInsets.fromLTRB(defaultPadding + 10, defaultPadding/2, defaultPadding + 10, defaultPadding/2),
+          maximumSize: const Size.fromHeight(80),
+          padding: const EdgeInsets.fromLTRB(defaultPadding + 10, defaultPadding/2, defaultPadding + 10, defaultPadding/2),
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(15))
           )
@@ -261,8 +330,8 @@ Widget BoxButtonSkeleton(int lenght, int index){
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Text("Box ${index.toString().padLeft(2,'0')}", style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w600)),
-                      Text(index % 2 == 0 ? "Disponible" : "Ocupado", style: TextStyle(color: Colors.white, fontSize: 12)),
+                      Text("Box ${index.toString().padLeft(2,'0')}", style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w600)),
+                      Text(index % 2 == 0 ? "Disponible" : "Ocupado", style: const TextStyle(color: Colors.white, fontSize: 12)),
                       // Text("Servicios:  ${index.toString().padLeft(2,'0')}", style: TextStyle(color: Colors.white)),
                     ],
                   )
@@ -291,7 +360,6 @@ Widget boxPromociones(int lenght, int index){
 }
 
 
-
 class MyCustomClipper  extends CustomClipper<Path>{
   @override
   getClip(Size size){
@@ -315,5 +383,4 @@ class MyCustomClipper  extends CustomClipper<Path>{
     throw UnimplementedError();
   }
 }
-
 

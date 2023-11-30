@@ -152,7 +152,7 @@ class _LoginFormState extends State<LoginForm> {
             },
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: defaultPadding * 2),
+            padding: const EdgeInsets.symmetric(vertical: defaultPadding),
             child: TextFormField(
               focusNode: focusPasswordNode,
               maxLength: 6,
