@@ -5,6 +5,11 @@ import 'package:flutter_auth/constants.dart';
 import 'package:flutter_auth/responsive.dart';
 
 import '../../components/background.dart';
+import '../../shared/components/skeletons/list_item.dart';
+
+
+// This is the type used by the popup menu below.
+enum SampleItem { itemOne, itemTwo, itemThree }
 
 
 class HomeScreen extends StatefulWidget {
@@ -53,6 +58,8 @@ class MobileHomeScreen extends StatefulWidget {
 }
 
 class _MobileHomeScreenState extends State<MobileHomeScreen> {
+
+  SampleItem? selectedMenu;
 
 
   @override
@@ -223,48 +230,40 @@ Widget BoxButton(int lenght, int index, BuildContext context){
                       expand: false,
                       builder: (_, controller) {
                         return ClipRRect(
-                            borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0)),
+                            borderRadius: const BorderRadius.only(topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0)),
                             child: Container(
                                 color: Colors.white,
                                 child: Column(
                                     children: [
                                       ListTile(
-                                          contentPadding: EdgeInsets.all(defaultPadding),
+                                          contentPadding: const EdgeInsets.fromLTRB(defaultPadding*2, defaultPadding, defaultPadding*2, defaultPadding),
                                           leading: Material(
                                             color: Colors.transparent,
                                             child: InkWell(
                                                 onTap: (){
                                                   Navigator.of(context).pop();
                                                 },
-                                                child: Icon(Icons.arrow_back) // the arrow back icon
+                                                child: const Icon(Icons.arrow_back_rounded) // the arrow back icon
                                             ),
                                           ),
                                           title: const Center(
                                               child: Text(
-                                                  "Clientes en espera",
+                                                  "0 Clientes en espera",
                                                   style: TextStyle(
                                                       fontSize: 18,
                                                       fontWeight: FontWeight.w500
                                                   ),
                                               ) // Your desired title
+                                          ),
+                                          trailing: InkWell(
+                                              onTap: (){},
+                                              child: const Icon(Icons.refresh_rounded) // the arrow back icon
                                           )
                                       ),
                                       Expanded(
                                           child: Container(
-                                              padding: EdgeInsets.fromLTRB(defaultPadding*2, defaultPadding, defaultPadding*2, defaultPadding),
-                                              child: ListView.builder(
-                                                  itemCount: 3,
-                                                  controller: controller, // set this too
-                                                  itemBuilder: (_, i) => Card(
-                                                    elevation: 0,
-                                                    child: ListTile(
-                                                      leading: FlutterLogo(size: 56.0),
-                                                      title: Text('Pepe Lucho ${(i+1).toString().padLeft(2,'0')}'),
-                                                      subtitle: Text('En espera', style: TextStyle(fontSize: 14),),
-                                                      trailing: Icon(Icons.more_vert),
-                                                    ),
-                                                  )
-                                              ),
+                                              padding: const EdgeInsets.fromLTRB(defaultPadding, 0, defaultPadding, defaultPadding),
+                                              child: ListItemSkeleton(itemCount: 10, controller: controller)
                                           )
                                       )
                                     ]
@@ -344,7 +343,6 @@ Widget BoxButtonSkeleton(int lenght, int index){
   );
 }
 
-
 Widget boxPromociones(int lenght, int index){
   return Container(
       padding:  const EdgeInsets.fromLTRB(defaultPadding*2, defaultPadding*2, defaultPadding*2, defaultPadding),
@@ -358,7 +356,6 @@ Widget boxPromociones(int lenght, int index){
       child: const Descuentos()
   );
 }
-
 
 class MyCustomClipper  extends CustomClipper<Path>{
   @override
