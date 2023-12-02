@@ -1,8 +1,11 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_auth/Screens/Home/cliente_info_cita.dart';
 import 'package:flutter_auth/Screens/Home/descuentos.dart';
 import 'package:flutter_auth/constants.dart';
 import 'package:flutter_auth/responsive.dart';
+import 'package:flutter_auth/shared/components/bottomSheet/bs_lista_clientes_espera.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../components/background.dart';
 import '../../shared/components/skeletons/list_item.dart';
@@ -226,52 +229,7 @@ Widget BoxButton(int lenght, int index, BuildContext context){
                       topLeft: Radius.circular(20)),
                 ),
                 builder: (_) {
-                  return DraggableScrollableSheet(
-                      expand: false,
-                      builder: (_, controller) {
-                        return ClipRRect(
-                            borderRadius: const BorderRadius.only(topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0)),
-                            child: Container(
-                                color: Colors.white,
-                                child: Column(
-                                    children: [
-                                      ListTile(
-                                          contentPadding: const EdgeInsets.fromLTRB(defaultPadding*2, defaultPadding, defaultPadding*2, defaultPadding),
-                                          leading: Material(
-                                            color: Colors.transparent,
-                                            child: InkWell(
-                                                onTap: (){
-                                                  Navigator.of(context).pop();
-                                                },
-                                                child: const Icon(Icons.arrow_back_rounded) // the arrow back icon
-                                            ),
-                                          ),
-                                          title: const Center(
-                                              child: Text(
-                                                  "0 Clientes en espera",
-                                                  style: TextStyle(
-                                                      fontSize: 18,
-                                                      fontWeight: FontWeight.w500
-                                                  ),
-                                              ) // Your desired title
-                                          ),
-                                          trailing: InkWell(
-                                              onTap: (){},
-                                              child: const Icon(Icons.refresh_rounded) // the arrow back icon
-                                          )
-                                      ),
-                                      Expanded(
-                                          child: Container(
-                                              padding: const EdgeInsets.fromLTRB(defaultPadding, 0, defaultPadding, defaultPadding),
-                                              child: ListItemSkeleton(itemCount: 10, controller: controller)
-                                          )
-                                      )
-                                    ]
-                                )
-                            )
-                        );
-                      },
-                  );
+                  return BottomSheetClientesEspera();
                 },
             );
         } : null,
