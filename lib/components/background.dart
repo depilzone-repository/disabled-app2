@@ -1,6 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_auth/NavigationScreens/ClientList/client_list_screen.dart';
+import 'package:flutter_auth/NavigationScreens/Home/home_screen.dart';
+import 'package:flutter_auth/NavigationScreens/NavigationList.dart';
+import 'package:flutter_auth/NavigationScreens/ScannerQr/scanner_qr_screen.dart';
 import 'package:flutter_auth/Screens/Welcome/welcome_screen.dart';
 import 'package:flutter_auth/constants.dart';
+
+import 'package:material_symbols_icons/symbols.dart';
 
 class Background extends StatefulWidget {
   final Widget child;
@@ -19,15 +27,82 @@ class Background extends StatefulWidget {
 }
 
 class _BackgroundState extends State<Background>{
-
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  bool showBar = true;
+
+  int counter = 0;
+
+  void _incrementCounter() {
+    setState(() {
+      counter++;
+    });
+  }
+
+
+  int _currentIndex = 0;
+  final List<NavigationList> _widgetList = [
+    NavigationList(
+        const HomeScreen(),
+        true
+    ),
+    NavigationList(
+        const ScannerQrScreen(),
+        false
+    ),
+    NavigationList(
+        const ClientListScreen(),
+        true
+    ),
+  ];
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Timer.periodic(new Duration(seconds: 1), (timer) {
+      _incrementCounter();
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
+
+
+      bottomNavigationBar: BottomNavigationBar(
+        iconSize: 26,
+        backgroundColor: Colors.white,
+        unselectedIconTheme: IconThemeData(color: Colors.grey[400]),
+        unselectedLabelStyle: TextStyle(color: Colors.grey[400]),
+
+        selectedIconTheme: const IconThemeData(color: kDepilColor),
+        selectedLabelStyle: const TextStyle(color: kDepilColor),
+        selectedFontSize: 12,
+
+        fixedColor: kDepilColor,
+        type: BottomNavigationBarType.fixed,
+        onTap: onTapped,
+        currentIndex: _currentIndex,
+        items: [
+          BottomNavigationBarItem(icon: Icon(Symbols.home_rounded), label: 'Inicio'),
+          BottomNavigationBarItem(icon: Icon(Icons.qr_code_scanner_rounded), label: 'QR'),
+          BottomNavigationBarItem(
+              icon: Badge(
+                  label: Text('${counter}'),
+                  child: Icon(Symbols.airline_seat_recline_normal_rounded),
+              ),
+              label: 'En Espera'
+          )
+          ,
+        ],
+      ),
+
+      appBar: _widgetList[_currentIndex].showNabBar ?  AppBar(
         titleSpacing: 0.0,
         backgroundColor: kDepilColor,
         title: Row(
@@ -103,7 +178,7 @@ class _BackgroundState extends State<Background>{
                 ],
             )
         ],
-      ),
+      ) : null,
       drawer:  Drawer(
         width: 320.0,
         child: ListView(
@@ -129,32 +204,60 @@ class _BackgroundState extends State<Background>{
                 );
               },
             ),
+            ListTile(
+              title: const Text('Scanear QR'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const ScannerQrScreen();
+                    },
+                  ),
+                );
+              },
+            ),
           ],
         ),
       ),
+      // body: SizedBox(
+      //   width: double.infinity,
+      //   height: MediaQuery.of(context).size.height,
+      //   child: Stack(
+      //     alignment: Alignment.center,
+      //     children: <Widget>[
+      //       Positioned(
+      //         top: 0,
+      //         left: 0,
+      //         child: Image.asset(
+      //           widget.topImage,
+      //           width: 120,
+      //         ),
+      //       ),
+      //       Positioned(
+      //         bottom: 0,
+      //         right: 0,
+      //         child: Image.asset(widget.bottomImage, width: 120),
+      //       ),
+      //       SafeArea(child: widget.child),
+      //     ],
+      //   ),
+      // ),
       body: SizedBox(
         width: double.infinity,
         height: MediaQuery.of(context).size.height,
-        child: Stack(
-          alignment: Alignment.center,
-          children: <Widget>[
-            Positioned(
-              top: 0,
-              left: 0,
-              child: Image.asset(
-                widget.topImage,
-                width: 120,
-              ),
-            ),
-            Positioned(
-              bottom: 0,
-              right: 0,
-              child: Image.asset(widget.bottomImage, width: 120),
-            ),
-            SafeArea(child: widget.child),
-          ],
-        ),
-      ),
+        child: _widgetList[_currentIndex].widget
+      )
     );
   }
+
+  void onTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+      // showBar = _widgetList[_currentIndex].showNabBar;
+    });
+  }
+
+
+
 }

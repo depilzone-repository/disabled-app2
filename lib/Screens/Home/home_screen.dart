@@ -1,14 +1,11 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_auth/Screens/Home/cliente_info_cita.dart';
 import 'package:flutter_auth/Screens/Home/descuentos.dart';
 import 'package:flutter_auth/constants.dart';
 import 'package:flutter_auth/responsive.dart';
 import 'package:flutter_auth/shared/components/bottomSheet/bs_lista_clientes_espera.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../components/background.dart';
-import '../../shared/components/skeletons/list_item.dart';
 
 
 // This is the type used by the popup menu below.
@@ -229,7 +226,7 @@ Widget BoxButton(int lenght, int index, BuildContext context){
                       topLeft: Radius.circular(20)),
                 ),
                 builder: (_) {
-                  return BottomSheetClientesEspera();
+                  return const BottomSheetClientesEspera();
                 },
             );
         } : null,

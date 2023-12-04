@@ -1,14 +1,7 @@
 import 'dart:async';
-import 'dart:developer';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_auth/shared/components/listView/ListViewClienteEspera.dart';
 import 'package:flutter_auth/shared/components/skeletons/list_item.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
-import '../../../Screens/Home/cliente_info_cita.dart';
-import '../../../Screens/Home/home_screen.dart';
 import '../../../constants.dart';
 
 class BottomSheetClientesEspera extends StatefulWidget{
@@ -28,7 +21,7 @@ class _BottomSheetClientesEsperaState extends State<BottomSheetClientesEspera> {
 
   @override
   void initState() {
-    Timer(Duration(seconds: 10), () {
+    Timer(const Duration(seconds: 10), () {
       loading = false;
       setState(() {});
     });

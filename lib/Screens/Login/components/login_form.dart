@@ -212,6 +212,8 @@ class _LoginFormState extends State<LoginForm> {
                   // ignore: avoid_print
                   // print(val);
                   if(val != null){
+                    //ignore: avoid_print
+                    print(val);
                     _ctrlPassword.text = val;
                   }
 

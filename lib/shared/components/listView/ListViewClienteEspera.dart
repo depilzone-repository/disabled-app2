@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_auth/Screens/Home/cliente_info_cita.dart';
 import 'package:flutter_auth/Screens/Home/home_screen.dart';
@@ -25,7 +24,7 @@ class ListViewClienteEspera extends StatelessWidget{
         child: ListTile(
           horizontalTitleGap: 10,
           minVerticalPadding: defaultPadding,
-          leadingAndTrailingTextStyle: TextStyle(
+          leadingAndTrailingTextStyle: const TextStyle(
               fontSize: 30
           ),
           leading: CircleAvatar(
@@ -38,10 +37,10 @@ class ListViewClienteEspera extends StatelessWidget{
               allowDrawingOutsideViewBox: false,
             ),
           ),
-          title: Text("Pepe Lucho sdfasdfasd fasdf asdf asdf asd f", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, overflow: TextOverflow.ellipsis),),
-          subtitle: Text("En espera", style: TextStyle(fontSize: 12)),
+          title: const Text("Pepe Lucho sdfasdfasd fasdf asdf asdf asd f", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, overflow: TextOverflow.ellipsis),),
+          subtitle: const Text("En espera", style: TextStyle(fontSize: 12)),
           trailing: PopupMenuButton<SampleItem>(
-            offset: Offset(0, 40),
+            offset: const Offset(0, 40),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15)
             ),
@@ -56,8 +55,8 @@ class ListViewClienteEspera extends StatelessWidget{
                   child: Row(
                     children: [
                       Container(
-                        padding: EdgeInsets.fromLTRB(0, 0, defaultPadding/2, 0),
-                        child: Icon(Icons.info_rounded),
+                        padding: const EdgeInsets.fromLTRB(0, 0, defaultPadding/2, 0),
+                        child: const Icon(Icons.info_rounded),
                       ),
                       const Text("Info")
                     ],
@@ -68,10 +67,10 @@ class ListViewClienteEspera extends StatelessWidget{
                   child: Row(
                     children: [
                       Container(
-                        padding: EdgeInsets.fromLTRB(0, 0, defaultPadding/2, 0),
-                        child: Icon(Icons.front_hand_rounded),
+                        padding: const EdgeInsets.fromLTRB(0, 0, defaultPadding/2, 0),
+                        child: const Icon(Icons.front_hand_rounded),
                       ),
-                      Text("Atender")
+                      const Text("Atender")
                     ],
                   )
               ),
