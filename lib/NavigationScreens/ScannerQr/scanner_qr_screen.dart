@@ -2,11 +2,12 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_auth/NavigationScreens/Home/home_screen.dart';
 import 'package:flutter_auth/NavigationScreens/ScannerQr/components/scanner_qr_result.dart';
 import 'package:flutter_auth/constants.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+
+import '../../Screens/V2/Home/home_screen.dart';
 
 
 class ScannerQrScreen extends StatefulWidget {
@@ -39,10 +40,8 @@ class _ScannerQrScreenState extends State<ScannerQrScreen> {
         appBar: AppBar(
             leading: IconButton(
               onPressed: (){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const HomeScreen()),
-                );
+                // controller!.dispose();
+                Navigator.of(context).pop(const HomeScreen());
               },
               color: Colors.white,
               icon: const Icon(Symbols.arrow_back_rounded),

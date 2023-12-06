@@ -1,8 +1,11 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_auth/Screens/Home/home_screen.dart';
+import 'package:flutter_auth/Screens/V2/Home/home_screen.dart';
+import 'package:flutter_auth/constants.dart';
 
-import '../../../constants.dart';
+import '../../../../components/already_have_an_account_acheck.dart';
+import '../../../Signup/signup_screen.dart';
+
 
 class LoginForm extends StatefulWidget {
   const LoginForm({
@@ -259,14 +262,25 @@ class _LoginFormState extends State<LoginForm> {
                         duration: Duration(seconds: 1),
                     ),
                   ).closed.then((value) => {
-                    Navigator.push(
-                        context,
-                            MaterialPageRoute(
-                                builder: (context) {
-                                return const HomeScreen();
-                            },
-                        ),
-                    )
+                      // Navigator.of(context).pushNamed('/home')
+                  Navigator.push(
+                    context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation, secondaryAnimation) => const HomeScreen(),
+                        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                          const begin = Offset(0.0, 1.0);
+                          const end = Offset.zero;
+                          const curve = Curves.ease;
+
+                          var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+                          return SlideTransition(
+                            position: animation.drive(tween),
+                            child: child,
+                          );
+                        },
+                      )
+                  )
                   });
                 }
               },
@@ -276,18 +290,18 @@ class _LoginFormState extends State<LoginForm> {
             ),
           ),
           const SizedBox(height: defaultPadding),
-          // AlreadyHaveAnAccountCheck(
-          //   press: () {
-          //     Navigator.push(
-          //       context,
-          //       MaterialPageRoute(
-          //         builder: (context) {
-          //           return const SignUpScreen();
-          //         },
-          //       ),
-          //     );
-          //   },
-          // ),
+          AlreadyHaveAnAccountCheck(
+            press: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const SignUpScreen();
+                  },
+                ),
+              );
+            },
+          ),
         ],
       ),
     );

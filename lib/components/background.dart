@@ -5,6 +5,7 @@ import 'package:flutter_auth/NavigationScreens/ClientList/client_list_screen.dar
 import 'package:flutter_auth/NavigationScreens/Home/home_screen.dart';
 import 'package:flutter_auth/NavigationScreens/NavigationList.dart';
 import 'package:flutter_auth/NavigationScreens/ScannerQr/scanner_qr_screen.dart';
+import 'package:flutter_auth/Screens/Menu/menu_screen.dart';
 import 'package:flutter_auth/Screens/Welcome/welcome_screen.dart';
 import 'package:flutter_auth/constants.dart';
 
@@ -41,27 +42,13 @@ class _BackgroundState extends State<Background>{
 
 
   int _currentIndex = 0;
-  final List<NavigationList> _widgetList = [
-    NavigationList(
-        const HomeScreen(),
-        true
-    ),
-    NavigationList(
-        const ScannerQrScreen(),
-        false
-    ),
-    NavigationList(
-        const ClientListScreen(),
-        true
-    ),
-  ];
 
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    Timer.periodic(new Duration(seconds: 1), (timer) {
+    Timer.periodic(const Duration(seconds: 1), (timer) {
       _incrementCounter();
     });
   }
@@ -69,6 +56,37 @@ class _BackgroundState extends State<Background>{
 
   @override
   Widget build(BuildContext context) {
+
+    final List<NavigationList> widgetList = [
+      NavigationList(
+          "Inicio",
+          const NavigationHomeScreen(),
+          true,
+          const Icon(Symbols.home_rounded),
+          const Icon(Symbols.home_rounded, fill: 1)
+      ),
+      NavigationList(
+          "QR",
+          const ScannerQrScreen(),
+          false,
+          const Icon(Icons.qr_code_scanner_rounded),
+          const Icon(Icons.qr_code_scanner_rounded, fill: 1)
+      ),
+      NavigationList(
+          "En Espera",
+          const ClientListScreen(),
+          true,
+          Badge(
+            label: Text('$counter'),
+            child: const Icon(Symbols.airline_seat_recline_normal_rounded),
+          ),
+          Badge(
+            label: Text('$counter'),
+            child: const Icon(Symbols.airline_seat_recline_normal_rounded, fill: 1),
+          ),
+      ),
+    ];
+
     return Scaffold(
       key: _scaffoldKey,
       resizeToAvoidBottomInset: false,
@@ -89,22 +107,13 @@ class _BackgroundState extends State<Background>{
         onTap: onTapped,
         currentIndex: _currentIndex,
         items: [
-          BottomNavigationBarItem(icon: Icon(Symbols.home_rounded), label: 'Inicio'),
-          BottomNavigationBarItem(icon: Icon(Icons.qr_code_scanner_rounded), label: 'QR'),
-          BottomNavigationBarItem(
-              icon: Badge(
-                  label: Text('${counter}'),
-                  child: Icon(Symbols.airline_seat_recline_normal_rounded),
-              ),
-              label: 'En Espera'
-          )
-          ,
-        ],
+          for( var n in widgetList )
+            BottomNavigationBarItem(label: n.label, icon: n.icon, activeIcon: n.iconSelected)
+        ]
       ),
 
-      appBar: _widgetList[_currentIndex].showNabBar ?  AppBar(
+      appBar: widgetList[_currentIndex].showNabBar ?  AppBar(
         titleSpacing: 0.0,
-        backgroundColor: kDepilColor,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -114,13 +123,15 @@ class _BackgroundState extends State<Background>{
                 child: IconButton(
                     icon: const Icon(Icons.menu),
                     onPressed: () => {
-                      if( _scaffoldKey.currentState!.hasDrawer ){
-                        _scaffoldKey.currentState!.openDrawer()
-                      }
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                        builder: (context) => const MenuScreen(),
+                        ),
+                      )
                       // // ignore: avoid_print
                       // print('eee')
                     },
-                    color: Colors.white,
+                    color: kDepilColor,
                 ),
             ),
             // Stack(
@@ -147,17 +158,17 @@ class _BackgroundState extends State<Background>{
             //     )
             //   ],
             // ),
-            // const Expanded(
-            //   child: Text(
-            //     'Hola, Yosel Edwin',
-            //     textAlign: TextAlign.left,
-            //     style: TextStyle(
-            //       fontSize: 16,
-            //       fontWeight: FontWeight.w400,
-            //       color: Colors.white
-            //     ),
-            //   ),
-            // )
+            const Expanded(
+              child: Text(
+                'Hola, Yosel Edwin ',
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black
+                ),
+              ),
+            )
           ],
         ),
         automaticallyImplyLeading: false,
@@ -168,11 +179,14 @@ class _BackgroundState extends State<Background>{
                     Padding(
                         padding: const EdgeInsets.fromLTRB(defaultPadding / 2, 0, defaultPadding, 0),
                         child: IconButton(
-                            color: Colors.white,
+                            color: kDepilColor,
                             onPressed: (){},
                             icon: const Icon(
-                                Icons.notifications_outlined
-                            )
+                                Symbols.notifications_rounded
+                            ),
+                            style: IconButton.styleFrom(
+                              backgroundColor: kDepilLightColor
+                            ),
                         )
                     )
                 ],
@@ -246,7 +260,7 @@ class _BackgroundState extends State<Background>{
       body: SizedBox(
         width: double.infinity,
         height: MediaQuery.of(context).size.height,
-        child: _widgetList[_currentIndex].widget
+        child: widgetList[_currentIndex].widget
       )
     );
   }

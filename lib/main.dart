@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_auth/Screens/Welcome/welcome_screen.dart';
 import 'package:flutter_auth/constants.dart';
+
+import 'Screens/V2/Home/home_screen.dart';
+import 'Screens/V2/Login/login_screen.dart';
 
 // void main() => runApp(const MyApp());
 void main() {
@@ -23,10 +25,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Auth',
-      theme: ThemeData(
-
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Auth',
+          theme: ThemeData(
           fontFamily: 'Poppins',
           primaryColor: kPrimaryColor,
           scaffoldBackgroundColor: Colors.white,
@@ -91,9 +92,19 @@ class MyApp extends StatelessWidget {
                       width: 2.5
                   ),
                 ),
-          )),
+          )
+      ),
 
-          home: const WelcomeScreen(),
+          initialRoute: '/login',
+
+          routes: {
+            '/login': (context) => const LoginScreen(),
+            '/home': (context) => const HomeScreen(),
+            // '/qr': (context) => const ScannerQrScreen(),
+            // '/waiting': (context) => const ClientListScreen(),
+          },
+
+          // home: const WelcomeScreen(),
     );
   }
 }

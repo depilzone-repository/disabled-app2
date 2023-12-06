@@ -24,9 +24,9 @@ class _LoginScreenState extends State<LoginScreen> {
       child: SingleChildScrollView(
         child: Responsive(
           mobile: MobileLoginScreen(clave: widget.clave),
-          desktop: Row(
+          desktop: const Row(
             children: [
-              const Expanded(
+              Expanded(
                 child: LoginScreenTopImage(),
               ),
               Expanded(
@@ -35,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     SizedBox(
                       width: 450,
-                      child: LoginForm(clave: widget.clave),
+                      child: LoginForm(),
                     ),
                   ],
                 ),
@@ -74,18 +74,18 @@ class _MobileLoginScreenState extends State<MobileLoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        const LoginScreenTopImage(),
+        LoginScreenTopImage(),
         Row(
           children: [
-            const Spacer(),
+            Spacer(),
             Expanded(
               flex: 8,
-              child: LoginForm(clave: widget.clave),
+              child: LoginForm(),
             ),
-            const Spacer(),
+            Spacer(),
           ],
         ),
       ],

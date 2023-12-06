@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_auth/constants.dart';
 
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class NavigationHomeScreen extends StatefulWidget {
+  const NavigationHomeScreen({super.key});
 
   @override
-  State<StatefulWidget> createState() => _HomeScreenState();
+  State<StatefulWidget> createState() => _NavigationHomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
 
 
   // In order to get hot reload to work we need to pause the camera if the platform
@@ -25,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
       children: [
         Expanded(
             child: Container(
-              color: Colors.black,
+              color: kGray200Color
             )
         )
       ],
