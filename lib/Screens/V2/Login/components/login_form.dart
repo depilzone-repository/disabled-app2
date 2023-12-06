@@ -1,7 +1,11 @@
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_auth/Screens/V2/Home/home_screen.dart';
 import 'package:flutter_auth/constants.dart';
+import 'package:flutter_tts/flutter_tts.dart';
+import 'package:flutter_vibrate/flutter_vibrate.dart';
 
 import '../../../../components/already_have_an_account_acheck.dart';
 import '../../../Signup/signup_screen.dart';
@@ -18,6 +22,15 @@ class LoginForm extends StatefulWidget {
 
 
 class _LoginFormState extends State<LoginForm> {
+  FlutterTts flutterTts = FlutterTts();
+
+  Future<void> configureTts() async {
+    await flutterTts.setLanguage('en-US');
+    await flutterTts.setSpeechRate(1.0);
+    await flutterTts.setVolume(1.0);
+  }
+
+
 
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
@@ -195,7 +208,11 @@ class _LoginFormState extends State<LoginForm> {
                         width: 50,
                         child: IconButton(
                           color: kGray500Color,
-                          onPressed: () => {
+                          onPressed: () async => {
+                            // Timer.periodic(Duration(seconds: 5), (timer) {
+                            //   Vibrate.vibrate();
+                            //   flutterTts.speak("Hay un cliente nuevo en la sala de espera");
+                            // })
                             setState( () => visibility = !visibility )
                           },
                           icon: Icon( visibility ? Icons.visibility_off :Icons.visibility),

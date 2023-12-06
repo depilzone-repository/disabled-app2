@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_auth/constants.dart';
 
 import 'components/login_form.dart';
 // import 'components/login_screen_top_image.dart';
@@ -12,23 +11,23 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body:
-        Container(
+        SizedBox(
           width: double.infinity - 200,
           child: Column(
             children: [
-              Spacer(),
+              const Spacer(),
               SizedBox(
                 width: (MediaQuery.of(context).size.width < 750) ? 350 : 400,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Image.asset("assets/images/logo-depilzone.png"),
-                    SizedBox(height: 100),
-                    LoginForm(),
+                    const SizedBox(height: 100),
+                    const LoginForm(),
                   ],
                 )
               ),
-              Spacer()
+              const Spacer()
             ],
           )
         )

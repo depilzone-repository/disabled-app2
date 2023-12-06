@@ -5,7 +5,7 @@ import 'package:flutter_auth/NavigationScreens/ClientList/client_list_screen.dar
 import 'package:flutter_auth/NavigationScreens/Home/home_screen.dart';
 import 'package:flutter_auth/NavigationScreens/NavigationList.dart';
 import 'package:flutter_auth/NavigationScreens/ScannerQr/scanner_qr_screen.dart';
-import 'package:flutter_auth/Screens/Menu/menu_screen.dart';
+import 'package:flutter_auth/Screens/V2/Menu/menu_screen.dart';
 import 'package:flutter_auth/Screens/Welcome/welcome_screen.dart';
 import 'package:flutter_auth/constants.dart';
 

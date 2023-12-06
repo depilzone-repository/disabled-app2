@@ -6,7 +6,7 @@ import 'package:flutter_auth/NavigationScreens/ClientList/client_list_screen.dar
 import 'package:flutter_auth/NavigationScreens/Home/home_screen.dart';
 import 'package:flutter_auth/NavigationScreens/NavigationList.dart';
 import 'package:flutter_auth/NavigationScreens/ScannerQr/scanner_qr_screen.dart';
-import 'package:flutter_auth/Screens/Menu/menu_screen.dart';
+import 'package:flutter_auth/Screens/V2/Menu/menu_screen.dart';
 import 'package:flutter_auth/constants.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
@@ -20,6 +20,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  final _pageControlller = PageController();
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   int _currentIndex = 0;
@@ -46,6 +48,12 @@ class _HomeScreenState extends State<HomeScreen> {
     Timer.periodic(const Duration(seconds: 1), (timer) {
       _incrementCounter();
     });
+  }
+
+
+  @override
+  void dispose() {
+    _pageControlller.dispose();
   }
 
 
