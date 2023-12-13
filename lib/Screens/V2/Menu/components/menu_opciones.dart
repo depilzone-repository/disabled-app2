@@ -1,10 +1,8 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_auth/Screens/V2/AgendarCita/agendar_cita_screen.dart';
+import 'package:flutter_auth/Screens/V2/ListaCitas/lista_citas_screen.dart';
 import 'package:flutter_auth/constants.dart';
 import 'package:material_symbols_icons/symbols.dart';
-import 'package:flutter_vibrate/flutter_vibrate.dart';
 
 
 class MenuOpciones extends StatelessWidget{
@@ -37,32 +35,24 @@ class MenuOpciones extends StatelessWidget{
                     ListTile(
                         contentPadding: const EdgeInsets.all(0),
                         onTap: (){
+                          Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                pageBuilder: (context, animation, secondaryAnimation) => const AgendarCitaScreen(),
+                                transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                  const begin = Offset(0.0, -1.0);
+                                  const end = Offset.zero;
+                                  const curve = Curves.ease;
 
-                          Timer.periodic(const Duration(seconds: 3), (timer) {
-                            Vibrate.vibrate();
-                          });
+                                  var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
-
-                          // Feedback.forTap(context);
-
-                          // Navigator.push(
-                          //     context,
-                          //     PageRouteBuilder(
-                          //       pageBuilder: (context, animation, secondaryAnimation) => const AgendarCitaScreen(),
-                          //       transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                          //         const begin = Offset(0.0, 1.0);
-                          //         const end = Offset.zero;
-                          //         const curve = Curves.ease;
-                          //
-                          //         var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-                          //
-                          //         return SlideTransition(
-                          //           position: animation.drive(tween),
-                          //           child: child,
-                          //         );
-                          //       },
-                          //     )
-                          // );
+                                  return SlideTransition(
+                                    position: animation.drive(tween),
+                                    child: child,
+                                  );
+                                },
+                              )
+                          );
                         },
                         leading: Icon(Symbols.calendar_add_on_rounded, color: Colors.green[400],size: 34),
                         title: const Text('Agendar Cita', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: kGray600Color)),
@@ -78,11 +68,11 @@ class MenuOpciones extends StatelessWidget{
                           Navigator.push(
                               context,
                               PageRouteBuilder(
-                                pageBuilder: (context, animation, secondaryAnimation) => const AgendarCitaScreen(),
+                                pageBuilder: (context, animation, secondaryAnimation) => const ListaCitasScreen(),
                                 transitionsBuilder: (context, animation, secondaryAnimation, child) {
                                   const begin = Offset(1.0, 0.0);
                                   const end = Offset.zero;
-                                  const curve = Curves.ease;
+                                  const curve = Curves.easeInOut;
 
                                   var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
@@ -143,7 +133,7 @@ class MenuOpciones extends StatelessWidget{
                 onTap: (){
                   Navigator.pushNamed(context, '/login');
                 },
-                child: Text(
+                child: const Text(
                     'Cerrar Sesión',
                     style: TextStyle(color: kDepilColor, decoration: TextDecoration.underline, fontWeight: FontWeight.w500,decorationColor: kDepilColor),
                     textAlign: TextAlign.center,

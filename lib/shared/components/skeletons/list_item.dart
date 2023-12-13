@@ -9,7 +9,7 @@ class ListItemSkeleton extends StatelessWidget{
   const ListItemSkeleton({
     super.key,
     required this.itemCount,
-    this.controller
+    this.controller,
   });
 
 
@@ -28,46 +28,93 @@ class ListItemSkeleton extends StatelessWidget{
             leadingAndTrailingTextStyle: const TextStyle(
                 fontSize: 30
             ),
-            leading: const CircleAvatar(
-              backgroundColor: kGray300Color,
+            leading: const ItemSkeleton(
+              height: 50,
+              width: 50,
+              radius: 100,
             ),
-            title: Container(
-                width: MediaQuery.of(context).size.width,
-                height: 18,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: kGray300Color
-                )
+            title: ItemSkeleton(
+              height: 18,
+              width: MediaQuery.of(context).size.width,
+              radius: 5,
             ),
-            subtitle: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                      margin: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                      width: 100,
-                      height: 10,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: kGray300Color
-                      )
-                  )
-                ],
+            subtitle: const ItemSkeleton(
+              height: 10,
+              width: 100,
+              radius: 5,
+              margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
             ),
-            trailing: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  width: 30,
-                  height: 30,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100),
-                    color: kGray300Color
-                  ),
-                )
-              ],
+            trailing: const ItemSkeleton(
+              height: 30,
+              width: 15,
+              radius: 100,
             )
           ),
         ),
     );
   }
+}
+
+
+
+
+class ItemSkeleton extends StatefulWidget{
+  const ItemSkeleton({
+    super.key,
+    required this.width,
+    required this.height,
+    required this.radius,
+    this.margin,
+  });
+
+  final double width;
+  final double height;
+  final double radius;
+  final EdgeInsetsGeometry? margin;
+
+  @override
+  _ItemSkeleton createState() => _ItemSkeleton();
+}
+
+class _ItemSkeleton extends State<ItemSkeleton> with SingleTickerProviderStateMixin {
+
+  late AnimationController _controller;
+  late Animation<Color?> colorAnimation;
+
+  
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(duration: const Duration(seconds: 1), vsync: this,)..repeat(reverse: true);
+    colorAnimation = ColorTween(begin: kGray200Color, end: kGray300Color).animate(_controller);
+  }
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+        animation: _controller,
+        builder: (context, child) {
+          return Container(
+              alignment: Alignment.center,
+              width: widget.width,
+              height: widget.height,
+              margin: widget.margin,
+              decoration: BoxDecoration(
+                color: colorAnimation.value,
+                borderRadius: BorderRadius.circular(widget.radius)
+              ),
+            );
+        });
+  }
+
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
 }

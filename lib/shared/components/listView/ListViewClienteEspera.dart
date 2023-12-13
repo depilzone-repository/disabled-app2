@@ -22,6 +22,7 @@ class ListViewClienteEspera extends StatelessWidget{
         color: kGray100Color,
         elevation: 0,
         child: ListTile(
+          contentPadding: const EdgeInsets.fromLTRB(defaultPadding/2, 0, defaultPadding/2, 0),
           horizontalTitleGap: 10,
           minVerticalPadding: defaultPadding,
           leadingAndTrailingTextStyle: const TextStyle(
@@ -29,7 +30,7 @@ class ListViewClienteEspera extends StatelessWidget{
           ),
           leading: CircleAvatar(
             backgroundColor: Colors.transparent,
-            radius: 40,
+            radius: 30,
             child: SvgPicture.asset(
               i % 2 == 0 ? 'assets/images/Femenino.svg' : 'assets/images/Masculino.svg',
               height: 100.0,

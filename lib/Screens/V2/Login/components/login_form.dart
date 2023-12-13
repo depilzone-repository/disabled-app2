@@ -1,11 +1,11 @@
 
 import 'dart:async';
-
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_auth/Screens/V2/Home/home_screen.dart';
+import 'package:flutter_auth/Services/auth_service.dart';
 import 'package:flutter_auth/constants.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import 'package:flutter_vibrate/flutter_vibrate.dart';
 
 import '../../../../components/already_have_an_account_acheck.dart';
 import '../../../Signup/signup_screen.dart';
@@ -29,6 +29,7 @@ class _LoginFormState extends State<LoginForm> {
     await flutterTts.setSpeechRate(1.0);
     await flutterTts.setVolume(1.0);
   }
+
 
 
 
@@ -65,8 +66,6 @@ class _LoginFormState extends State<LoginForm> {
       // log(123123);
     });
 
-    // ignore: avoid_print
-    // print('LoginForm ${widget.clave}');
   }
 
 
@@ -91,6 +90,9 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
+
+    final auth = AuthService();
+
     return Form(
       key: _formKey,
       child: Column(
@@ -209,11 +211,12 @@ class _LoginFormState extends State<LoginForm> {
                         child: IconButton(
                           color: kGray500Color,
                           onPressed: () async => {
+                          flutterTts.speak("Hay un cliente nuevo en la sala de espera")
                             // Timer.periodic(Duration(seconds: 5), (timer) {
-                            //   Vibrate.vibrate();
+                            //   // Vibrate.vibrate();
                             //   flutterTts.speak("Hay un cliente nuevo en la sala de espera");
                             // })
-                            setState( () => visibility = !visibility )
+                            // setState( () => visibility = !visibility )
                           },
                           icon: Icon( visibility ? Icons.visibility_off :Icons.visibility),
                         )
@@ -272,32 +275,33 @@ class _LoginFormState extends State<LoginForm> {
                   // If the form is valid, display a snackbar. In the real world,
                   // you'd often call a server or save the information in a database.
                   ScaffoldMessenger.of(context).showSnackBar(
-
                     const SnackBar(
                         content: Text('Enviando datos...'),
                         behavior: SnackBarBehavior.floating,
                         duration: Duration(seconds: 1),
                     ),
-                  ).closed.then((value) => {
+                  ).closed.then((value) async => {
+
+
                       // Navigator.of(context).pushNamed('/home')
-                  Navigator.push(
-                    context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation, secondaryAnimation) => const HomeScreen(),
-                        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                          const begin = Offset(0.0, 1.0);
-                          const end = Offset.zero;
-                          const curve = Curves.ease;
-
-                          var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-                          return SlideTransition(
-                            position: animation.drive(tween),
-                            child: child,
-                          );
-                        },
-                      )
-                  )
+                  // Navigator.push(
+                  //   context,
+                  //     PageRouteBuilder(
+                  //       pageBuilder: (context, animation, secondaryAnimation) => const HomeScreen(),
+                  //       transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                  //         const begin = Offset(0.0, 1.0);
+                  //         const end = Offset.zero;
+                  //         const curve = Curves.ease;
+                  //
+                  //         var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+                  //
+                  //         return SlideTransition(
+                  //           position: animation.drive(tween),
+                  //           child: child,
+                  //         );
+                  //       },
+                  //     )
+                  // )
                   });
                 }
               },

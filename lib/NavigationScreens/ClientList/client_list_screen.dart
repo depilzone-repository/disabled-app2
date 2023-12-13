@@ -15,11 +15,11 @@ class ClientListScreen extends StatefulWidget {
 
 class _ClientListScreenState extends State<ClientListScreen> {
 
-  bool loading = false;
+  bool loading = true;
 
   @override
   void initState() {
-    Timer(const Duration(seconds: 10), () {
+    Timer(const Duration(seconds: 6), () {
       loading = false;
       setState(() {});
     });
@@ -46,7 +46,7 @@ class _ClientListScreenState extends State<ClientListScreen> {
           clipBehavior: Clip.hardEdge,
           child: Container(
             decoration: const BoxDecoration(
-              color: kDepilColor,
+              color: Color(0xff0e2443),
             ),
             padding: const EdgeInsets.fromLTRB(defaultPadding, defaultPadding, defaultPadding, defaultPadding),
             child: const Column(

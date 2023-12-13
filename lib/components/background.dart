@@ -1,8 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_auth/NavigationScreens/ClientList/client_list_screen.dart';
-import 'package:flutter_auth/NavigationScreens/Home/home_screen.dart';
 import 'package:flutter_auth/NavigationScreens/NavigationList.dart';
 import 'package:flutter_auth/NavigationScreens/ScannerQr/scanner_qr_screen.dart';
 import 'package:flutter_auth/Screens/V2/Menu/menu_screen.dart';
@@ -58,33 +56,7 @@ class _BackgroundState extends State<Background>{
   Widget build(BuildContext context) {
 
     final List<NavigationList> widgetList = [
-      NavigationList(
-          "Inicio",
-          const NavigationHomeScreen(),
-          true,
-          const Icon(Symbols.home_rounded),
-          const Icon(Symbols.home_rounded, fill: 1)
-      ),
-      NavigationList(
-          "QR",
-          const ScannerQrScreen(),
-          false,
-          const Icon(Icons.qr_code_scanner_rounded),
-          const Icon(Icons.qr_code_scanner_rounded, fill: 1)
-      ),
-      NavigationList(
-          "En Espera",
-          const ClientListScreen(),
-          true,
-          Badge(
-            label: Text('$counter'),
-            child: const Icon(Symbols.airline_seat_recline_normal_rounded),
-          ),
-          Badge(
-            label: Text('$counter'),
-            child: const Icon(Symbols.airline_seat_recline_normal_rounded, fill: 1),
-          ),
-      ),
+
     ];
 
     return Scaffold(
@@ -108,7 +80,11 @@ class _BackgroundState extends State<Background>{
         currentIndex: _currentIndex,
         items: [
           for( var n in widgetList )
-            BottomNavigationBarItem(label: n.label, icon: n.icon, activeIcon: n.iconSelected)
+            BottomNavigationBarItem(
+                label: n.label,
+                icon: n.icon,
+                activeIcon: n.iconSelected,
+            )
         ]
       ),
 

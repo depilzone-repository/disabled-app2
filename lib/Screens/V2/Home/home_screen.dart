@@ -1,12 +1,12 @@
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_auth/NavigationScreens/ClientList/client_list_screen.dart';
 import 'package:flutter_auth/NavigationScreens/Home/home_screen.dart';
 import 'package:flutter_auth/NavigationScreens/NavigationList.dart';
-import 'package:flutter_auth/NavigationScreens/ScannerQr/scanner_qr_screen.dart';
+import 'package:flutter_auth/NavigationScreens/ScannerQr/scanner_qr_list_screen.dart';
 import 'package:flutter_auth/Screens/V2/Menu/menu_screen.dart';
+import 'package:flutter_auth/Services/auth_service.dart';
 import 'package:flutter_auth/constants.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
@@ -62,20 +62,24 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
 
+    final auth = AuthService();
+
     final List<NavigationList> widgetList = [
       NavigationList(
           "Inicio",
           const NavigationHomeScreen(),
           true,
           const Icon(Symbols.home_rounded),
-          const Icon(Symbols.home_rounded, fill: 1)
+          const Icon(Symbols.home_rounded, fill: 1),
+          kDepilColor
       ),
       NavigationList(
           "QR",
-          const ScannerQrScreen(),
-          false,
+          const ScannerQrListScreen(),
+          true,
           const Icon(Icons.qr_code_scanner_rounded),
-          const Icon(Icons.qr_code_scanner_rounded, fill: 1)
+          const Icon(Icons.qr_code_scanner_rounded, fill: 1),
+          kDepilColor
       ),
       NavigationList(
         "En Espera",
@@ -87,8 +91,9 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         Badge(
           label: Text('$counter'),
-          child: const Icon(Symbols.airline_seat_recline_normal_rounded, fill: 1),
+          child: const Icon(Symbols.airline_seat_recline_normal_rounded, fill: 1, color: Color(0xff0e2443)),
         ),
+          const Color(0xff80b1ff)
       ),
     ];
 
@@ -177,9 +182,9 @@ class _HomeScreenState extends State<HomeScreen> {
               //     )
               //   ],
               // ),
-              const Expanded(
+              Expanded(
                 child: Text(
-                  'Hola, Yosel Edwin ',
+                  'Hola, ${auth.authenticatedUser?.lastname}',
                   textAlign: TextAlign.left,
                   style: TextStyle(
                       fontSize: 14,
