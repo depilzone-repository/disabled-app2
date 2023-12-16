@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_auth/NavigationScreens/ClientList/client_list_screen.dart';
@@ -9,6 +10,8 @@ import 'package:flutter_auth/Screens/V2/Menu/menu_screen.dart';
 import 'package:flutter_auth/Services/auth_service.dart';
 import 'package:flutter_auth/constants.dart';
 import 'package:material_symbols_icons/symbols.dart';
+
+import '../../../Services/shared_preferences.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -53,6 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void dispose() {
+    super.dispose();
     _pageControlller.dispose();
   }
 
@@ -186,7 +190,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Text(
                   'Hola, ${auth.authenticatedUser?.lastname}',
                   textAlign: TextAlign.left,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                       color: Colors.black
@@ -241,11 +245,32 @@ class _HomeScreenState extends State<HomeScreen> {
         //   ),
         // ),
 
-        body: SizedBox(
-            width: double.infinity,
-            height: MediaQuery.of(context).size.height,
-            child: widgetList[_currentIndex].widget
-        )
+        // body: SizedBox(
+        //     width: double.infinity,
+        //     height: MediaQuery.of(context).size.height,
+        //     child: widgetList[_currentIndex].widget
+        // )
+
+
+
+        body: FutureBuilder<bool>(
+          future: getLoginState(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              log("waiting");
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else {
+              log("login");
+              final bool isLoggedIn = snapshot.data ?? false;
+              return Center(
+                child: Text(isLoggedIn ? 'Usuario autenticado' : 'Usuario no autenticado'),
+              );
+            }
+          },
+        ),
+
     );
   }
 }

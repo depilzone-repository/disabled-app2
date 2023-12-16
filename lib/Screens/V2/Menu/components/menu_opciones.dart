@@ -4,6 +4,8 @@ import 'package:flutter_auth/Screens/V2/ListaCitas/lista_citas_screen.dart';
 import 'package:flutter_auth/constants.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
+import '../../../../Services/shared_preferences.dart';
+
 
 class MenuOpciones extends StatelessWidget{
   const MenuOpciones({super.key});
@@ -130,8 +132,13 @@ class MenuOpciones extends StatelessWidget{
         Container(
             padding: const EdgeInsets.fromLTRB(defaultPadding, defaultPadding*2, defaultPadding, defaultPadding*2),
             child: InkWell(
-                onTap: (){
-                  Navigator.pushNamed(context, '/login');
+                onTap: () async{
+
+                  // Guardar el estado de inicio de sesión
+                  await logout();
+
+                  Navigator.pushReplacementNamed(context, '/login');
+
                 },
                 child: const Text(
                     'Cerrar Sesión',

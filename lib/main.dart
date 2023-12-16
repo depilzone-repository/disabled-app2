@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_auth/constants.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-// import 'package:onesignal_flutter/onesignal_flutter.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+
+import 'Blocs/auth_bloc.dart';
 import 'Screens/V2/Home/home_screen.dart';
 import 'Screens/V2/Login/login_screen.dart';
-import 'Widgets/auth_wraper_widget.dart';
+import 'Services/shared_preferences.dart';
 
 // void main() => runApp(const MyApp());
-void main() {
+void main() async{
 
 //   //Remove this method to stop OneSignal Debugging
 //   OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
@@ -28,14 +28,19 @@ void main() {
   // before the runApp() call
   WidgetsFlutterBinding.ensureInitialized();
 
+
+  // Verificar el estado de inicio de sesión
+  bool isLoggedIn = await getLoginState();
+
   // Than we setup preferred orientations,
   // and only after it finished we run our app
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
-      .then((value) => runApp(const ProviderScope( child: MyApp())));
+  runApp(MyApp(isLoggedIn: isLoggedIn));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final bool isLoggedIn;
+
+  const MyApp({super.key, required this.isLoggedIn});
 
   // This widget is the root of your application.
   @override
@@ -110,14 +115,18 @@ class MyApp extends StatelessWidget {
                   ),
             )
         ),
+          initialRoute: isLoggedIn ? '/home' : '/login',
           routes: {
-            '/login': (context) => const LoginScreen(),
-            '/home': (context) => const HomeScreen(),
+            '/login': (context) => BlocProvider(
+              create: (context) => AuthBloc(),
+              child: const LoginScreen(),
+            ),
+            '/home': (context) =>  isLoggedIn ? const HomeScreen() : const LoginScreen(),
             // '/qr': (context) => const ScannerQrScreen(),
             // '/waiting': (context) => const ClientListScreen(),
           },
 
-          home: const AuthWrapper(),
+          // home: const AuthWrapper(),
 
           // home: const WelcomeScreen(),
     );

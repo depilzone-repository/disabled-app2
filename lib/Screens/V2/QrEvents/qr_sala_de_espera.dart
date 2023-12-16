@@ -25,7 +25,7 @@ class _QrSalaDeEsperaScreenState extends State<QrSalaDeEsperaScreen> {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.transparent,
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.white, //OR Colors.red or whatever you want
         ),
         title: const Text(

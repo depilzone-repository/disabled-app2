@@ -1,8 +1,6 @@
 
 import 'dart:async';
-import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:flutter_auth/Screens/V2/Home/home_screen.dart';
 import 'package:flutter_auth/Services/auth_service.dart';
 import 'package:flutter_auth/constants.dart';
 import 'package:flutter_tts/flutter_tts.dart';

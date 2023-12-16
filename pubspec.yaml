@@ -39,6 +39,10 @@ dependencies:
   flutter_tts: ^3.8.5
   http: ^1.1.2
   flutter_riverpod: ^2.4.9
+  shared_preferences: ^2.0.10
+  bloc: ^7.0.0
+  equatable: ^2.0.0
+  flutter_bloc: ^7.0.0
 #  onesignal_flutter: ^5.0.4
 
 dev_dependencies:
