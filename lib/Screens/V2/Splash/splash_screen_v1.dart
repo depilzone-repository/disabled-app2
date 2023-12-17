@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreenV1 extends StatelessWidget{
@@ -6,8 +5,8 @@ class SplashScreenV1 extends StatelessWidget{
 
   @override
   Widget build(BuildContext context){
-    return Scaffold(
-      body: Container(
+    return const Scaffold(
+      body: SizedBox(
         width: double.infinity,
         height: double.infinity,
         child: Center(

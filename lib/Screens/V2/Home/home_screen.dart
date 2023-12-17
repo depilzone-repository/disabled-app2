@@ -245,31 +245,30 @@ class _HomeScreenState extends State<HomeScreen> {
         //   ),
         // ),
 
-        // body: SizedBox(
-        //     width: double.infinity,
-        //     height: MediaQuery.of(context).size.height,
-        //     child: widgetList[_currentIndex].widget
-        // )
+        body: SizedBox(
+            width: double.infinity,
+            height: MediaQuery.of(context).size.height,
+            child: widgetList[_currentIndex].widget
+        )
 
 
 
-        body: FutureBuilder<bool>(
-          future: getLoginState(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              log("waiting");
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            } else {
-              log("login");
-              final bool isLoggedIn = snapshot.data ?? false;
-              return Center(
-                child: Text(isLoggedIn ? 'Usuario autenticado' : 'Usuario no autenticado'),
-              );
-            }
-          },
-        ),
+        // body: FutureBuilder<bool>(
+        //   future: getLoginState(),
+        //   builder: (context, snapshot) {
+        //     if (snapshot.connectionState == ConnectionState.waiting) {
+        //       // Mientras espera la autenticación, muestra un indicador de carga
+        //       return CircularProgressIndicator();
+        //     } else {
+        //       if (snapshot.hasError) {
+        //         // Si hay un error en la autenticación, muestra un mensaje de error
+        //         return Text('Error en la autenticación');
+        //       } else {
+        //         return Text('Autenticado');
+        //       }
+        //     }
+        //   },
+        // ),
 
     );
   }
