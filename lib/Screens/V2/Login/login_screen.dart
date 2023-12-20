@@ -1,14 +1,18 @@
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_auth/Blocs/auth_bloc.dart';
 import 'package:flutter_auth/Events/auth_event.dart';
-import 'package:flutter_auth/Models/usuario_model.dart';
 import 'package:flutter_auth/Services/auth_service.dart';
 import 'package:flutter_auth/components/already_have_an_account_acheck.dart';
 import 'package:flutter_auth/constants.dart';
+import 'package:flutter_auth/shared/services/auth_service.dart';
+import 'package:flutter_auth/shared/services/shared_pref.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../Services/shared_preferences.dart';
+import '../../../shared/models/Usuario.dart';
 import '../../Signup/signup_screen.dart';
 import 'components/login_form.dart';
 
@@ -62,12 +66,14 @@ class _LoginScreenState extends State<LoginScreen>{
   @override
   Widget build(BuildContext context) {
 
-    final authBloc = BlocProvider.of<AuthBloc>(context);
+    SharedPref sharedPref = SharedPref();
+
+    // final authBloc = BlocProvider.of<AuthBloc>(context);
 
     return Scaffold(
         body: Center( child: SingleChildScrollView(
           child: Container(
-            padding: const EdgeInsets.all(defaultPadding),
+            padding: const EdgeInsets.all(defaultPadding*2),
             constraints: const BoxConstraints(
               maxWidth: 500
             ),
@@ -270,15 +276,36 @@ class _LoginScreenState extends State<LoginScreen>{
                                 //     }
                                 // });
 
-                                authBloc.add(const LoginEvent(
-                                  user:  User(username: 'nombre_de_usuario', password: 'contraseña'),
-                                ));
+                                // authBloc.add(const LoginEvent(
+                                //   user:  User(username: 'nombre_de_usuario', password: 'contraseña'),
+                                // ));
 
                                 // Guardar el estado de inicio de sesión
-                                await saveLoginState(true);
 
-                                Navigator.pushReplacementNamed(context, '/home');
+                                Usuario usuario = const Usuario(
+                                  "Pepe Lucho",
+                                  "Sanchez",
+                                  "pepelucho@gmail.com",
+                                  "16763be4-6022-406e-a950-fcd5018633ca"
+                                );
 
+
+                                await Login('ofelia495@hotmail.com', 'Hiofelia1995')
+                                    .then((value) async{
+
+
+                                        await sharedPref.save('user', usuario.toJson());
+                                        Navigator.pushReplacementNamed(context, '/home');
+                                    })
+                                    .catchError((err){
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                          content: Text('${err.message}'),
+                                          behavior: SnackBarBehavior.floating,
+                                          duration: Duration(seconds: 3),
+                                        ),
+                                      );
+                                    });
                               }
                           },
                           child: const Text(

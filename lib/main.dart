@@ -1,15 +1,20 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_auth/constants.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'dart:developer';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_auth/Screens/V2/Home/home_screen.dart';
+import 'package:flutter_auth/Screens/V2/Splash/splash_screen_v1.dart';
+import 'package:flutter_auth/constants.dart';
+import 'package:flutter_auth/shared/globals/data.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 import 'Blocs/auth_bloc.dart';
-import 'Screens/V2/Home/home_screen.dart';
 import 'Screens/V2/Login/login_screen.dart';
-import 'Services/shared_preferences.dart';
+import 'shared/services/inicio_service.dart';
 
-// void main() => runApp(const MyApp());
+
 void main() async{
+
 
 //   //Remove this method to stop OneSignal Debugging
 //   OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
@@ -19,22 +24,15 @@ void main() async{
 // // The promptForPushNotificationsWithUserResponse function will show the iOS or Android push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission
 //   OneSignal.Notifications.requestPermission(true);
 
-
-
-
-
-  // We need to call it manually,
-  // because we going to call setPreferredOrientations()
-  // before the runApp() call
   WidgetsFlutterBinding.ensureInitialized();
 
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => AppProvider(),
+      child: const MyApp(isLoggedIn: true),
+    ),
+  );
 
-  // Verificar el estado de inicio de sesión
-  bool isLoggedIn = await getLoginState();
-
-  // Than we setup preferred orientations,
-  // and only after it finished we run our app
-  runApp(MyApp(isLoggedIn: isLoggedIn));
 }
 
 class MyApp extends StatelessWidget {
@@ -42,9 +40,14 @@ class MyApp extends StatelessWidget {
 
   const MyApp({super.key, required this.isLoggedIn});
 
+
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
+    var appProvider = Provider.of<AppProvider>(context, listen: false);
+
     return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Flutter Auth',
@@ -115,18 +118,47 @@ class MyApp extends StatelessWidget {
                   ),
             )
         ),
-          initialRoute: isLoggedIn ? '/home' : '/login',
+          // initialRoute: isLoggedIn ? '/home' : '/login',
           routes: {
-            '/login': (context) => BlocProvider(
-              create: (context) => AuthBloc(),
-              child: const LoginScreen(),
-            ),
-            '/home': (context) =>  isLoggedIn ? const HomeScreen() : const LoginScreen(),
+            // '/login': (context) => BlocProvider(
+            //   create: (context) => AuthBloc(),
+            //   child: const LoginScreen(),
+            // ),
+            '/login': (context) => const LoginScreen(),
+            // '/home': (context) =>  isLoggedIn ? const LoginScreen() : const LoginScreen(),
+            '/home': (context) =>  const HomeScreen(),
             // '/qr': (context) => const ScannerQrScreen(),
             // '/waiting': (context) => const ClientListScreen(),
           },
 
-          // home: const AuthWrapper(),
+          // home: ChangeNotifierProvider(
+          //   create: (context) => AppData(),
+          //   child: TaskScreen(),
+          // )
+
+          home: FutureBuilder(
+            future: fetchDataAndUpdateNotifier(appProvider),
+            builder: (context, snapshot){
+              // log(context.watch<AppProvider>().usuario!.apellido);
+              switch (snapshot.connectionState) {
+                case ConnectionState.none:
+                  return const Text('Press button to start.');
+                case ConnectionState.active:
+                case ConnectionState.waiting:
+                  // return Text('Data loaded successfully: ${appProvider.text}');
+                  return const SplashScreen();
+                case ConnectionState.done:
+                // Aquí puedes realizar acciones después de que el Future<void> se complete
+                  return appProvider.usuario != null ?  HomeScreen() : const LoginScreen();
+                default:
+                  if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else {
+                    return const Text('Error:');
+                  }
+              }
+            },
+          ),
 
           // home: const WelcomeScreen(),
     );

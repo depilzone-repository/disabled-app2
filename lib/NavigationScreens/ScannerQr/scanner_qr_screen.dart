@@ -8,6 +8,7 @@ import 'package:material_symbols_icons/symbols.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 import '../../Screens/V2/Home/home_screen.dart';
+import '../../shared/models/Usuario.dart';
 
 
 class ScannerQrScreen extends StatefulWidget {
@@ -41,7 +42,7 @@ class _ScannerQrScreenState extends State<ScannerQrScreen> {
             leading: IconButton(
               onPressed: (){
                 // controller!.dispose();
-                Navigator.of(context).pop(const HomeScreen());
+                Navigator.of(context).pop( HomeScreen());
               },
               color: Colors.white,
               icon: const Icon(Symbols.arrow_back_rounded),

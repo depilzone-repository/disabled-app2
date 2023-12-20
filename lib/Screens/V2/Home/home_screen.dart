@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_auth/NavigationScreens/ClientList/client_list_screen.dart';
@@ -7,11 +6,14 @@ import 'package:flutter_auth/NavigationScreens/Home/home_screen.dart';
 import 'package:flutter_auth/NavigationScreens/NavigationList.dart';
 import 'package:flutter_auth/NavigationScreens/ScannerQr/scanner_qr_list_screen.dart';
 import 'package:flutter_auth/Screens/V2/Menu/menu_screen.dart';
+import 'package:flutter_auth/Screens/V2/QrCliente/qr_cliente_screen.dart';
 import 'package:flutter_auth/Services/auth_service.dart';
+import 'package:flutter_auth/Services/shared_preferences.dart';
 import 'package:flutter_auth/constants.dart';
+import 'package:flutter_auth/shared/services/shared_pref.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
-import '../../../Services/shared_preferences.dart';
+import '../../../shared/models/Usuario.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -23,6 +25,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  Usuario? currentUser;
+
+  final SharedPref sharedPref = SharedPref();
 
   final _pageControlller = PageController();
 
@@ -48,6 +54,10 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    _cargarUsuario();
+
+
     Timer.periodic(const Duration(seconds: 1), (timer) {
       _incrementCounter();
     });
@@ -58,6 +68,14 @@ class _HomeScreenState extends State<HomeScreen> {
   void dispose() {
     super.dispose();
     _pageControlller.dispose();
+  }
+
+
+  Future<void> _cargarUsuario() async {
+    Usuario? user = await getUsuario();
+    setState(() {
+      currentUser = user!;
+    });
   }
 
 
@@ -78,24 +96,26 @@ class _HomeScreenState extends State<HomeScreen> {
           kDepilColor
       ),
       NavigationList(
-          "QR",
-          const ScannerQrListScreen(),
+          "Mi QR",
+          QrClienteScreen(),
           true,
-          const Icon(Icons.qr_code_scanner_rounded),
-          const Icon(Icons.qr_code_scanner_rounded, fill: 1),
+          const Icon(Icons.qr_code_rounded),
+          const Icon(Icons.qr_code_rounded, fill: 1),
+          // const Icon(Icons.qr_code_scanner_rounded),
+          // const Icon(Icons.qr_code_scanner_rounded, fill: 1),
           kDepilColor
       ),
       NavigationList(
-        "En Espera",
+        "Promociones",
         const ClientListScreen(),
         true,
         Badge(
           label: Text('$counter'),
-          child: const Icon(Symbols.airline_seat_recline_normal_rounded),
+          child: const Icon(Symbols.featured_seasonal_and_gifts_rounded),
         ),
         Badge(
           label: Text('$counter'),
-          child: const Icon(Symbols.airline_seat_recline_normal_rounded, fill: 1, color: Color(0xff0e2443)),
+          child: const Icon(Symbols.featured_seasonal_and_gifts_rounded, fill: 1, color: Color(0xff0e2443)),
         ),
           const Color(0xff80b1ff)
       ),
@@ -188,7 +208,7 @@ class _HomeScreenState extends State<HomeScreen> {
               // ),
               Expanded(
                 child: Text(
-                  'Hola, ${auth.authenticatedUser?.lastname}',
+                  'Hola, ${currentUser?.nombre}',
                   textAlign: TextAlign.left,
                   style: const TextStyle(
                       fontSize: 14,

@@ -1,6 +1,9 @@
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_auth/Screens/Home/home_screen.dart';
+import 'package:flutter_auth/shared/services/auth_service.dart';
 
 import '../../../constants.dart';
 
@@ -247,8 +250,17 @@ class _LoginFormState extends State<LoginForm> {
           Hero(
             tag: "login_btn",
             child: ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 if (_formKey.currentState!.validate()) {
+
+                  try{
+                    await Login(_ctrlPhone.text, _ctrlPassword.text);
+                  }catch(e){
+                    log("dd: $e");
+                  }
+
+
+
                   // If the form is valid, display a snackbar. In the real world,
                   // you'd often call a server or save the information in a database.
                   ScaffoldMessenger.of(context).showSnackBar(

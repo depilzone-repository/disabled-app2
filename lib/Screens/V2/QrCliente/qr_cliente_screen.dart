@@ -1,0 +1,82 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_auth/Services/shared_preferences.dart';
+import 'package:flutter_auth/constants.dart';
+import 'package:flutter_auth/shared/services/shared_pref.dart';
+import 'package:qr_flutter/qr_flutter.dart';
+
+import '../../../shared/models/Usuario.dart';
+
+class QrClienteScreen extends StatefulWidget {
+  const QrClienteScreen({super.key});
+
+  @override
+  State<StatefulWidget> createState() =>  _QrClienteScreenState();
+}
+
+class _QrClienteScreenState extends State<QrClienteScreen> {
+
+  Usuario? currentUser;
+  final SharedPref sharedPref = SharedPref();
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  Future<void> _cargarUsuario() async {
+    Usuario? user = await getUsuario();
+    setState(() {
+      currentUser = user!;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+
+    return Container(
+      // color: kDepilColor,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [kDepilColor, Colors.indigo],
+          stops: [0.25, 0.75],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        )
+
+      ),
+      padding: EdgeInsets.all(defaultPadding),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+              Text("Mi código Qr", style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500)),
+              SizedBox(height: 20.0),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(30.0),
+                child: QrImageView(
+                  padding: const EdgeInsets.all(defaultPadding*2),
+                  backgroundColor: Colors.white,
+                  data: '${currentUser?.hash}',
+                  version: 4,
+                  size: 250.0,
+                ),
+              ),
+              SizedBox(height: 20.0),
+              Text('Utiliza tu código Qr para asistir a tu cita, obtener promociones y descuentos', textAlign: TextAlign.center, style: TextStyle(color: Colors.white)),
+
+        ]
+      )
+    );
+
+
+  }
+
+
+}
