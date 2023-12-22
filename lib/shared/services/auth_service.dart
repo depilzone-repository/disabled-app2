@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 
 Future<Usuario> Login(String email, String password) async {
 
-  Usuario usuario = const Usuario(hash: 'asdfasdfasd-asdfasdfasd-fasdfasdf', correo: 'asdfasdfasdfasdfads');
+  Usuario usuario = Usuario(hash: 'asdfasdfasd-asdfasdfasd-fasdfasdf', correo: 'asdfasdfasdfasdfads');
 
   final msg = jsonEncode({"clave":password,"correo":email});
 
@@ -28,8 +28,6 @@ Future<Usuario> Login(String email, String password) async {
 
     usuario.nombre = '${result['data']['nombres']}';
     usuario.apellido = '${result['data']['apellidos']}';
-
-
 
   }
   else {

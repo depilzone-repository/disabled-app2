@@ -282,12 +282,9 @@ class _LoginScreenState extends State<LoginScreen>{
 
                                 // Guardar el estado de inicio de sesión
 
-                                Usuario usuario = const Usuario(
-                                  "Pepe Lucho",
-                                  "Sanchez",
-                                  "pepelucho@gmail.com",
-                                  "16763be4-6022-406e-a950-fcd5018633ca"
-                                );
+                                Usuario usuario = Usuario(correo: "pepelucho@gmail.com", hash: "asdfasdfsd-asdfasdfasdf-asdfasdf");
+                                usuario.nombre = "Pepe Lucho";
+                                usuario.apellido = "Sanchez";
 
 
                                 await Login('ofelia495@hotmail.com', 'Hiofelia1995')

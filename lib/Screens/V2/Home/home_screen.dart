@@ -58,9 +58,9 @@ class _HomeScreenState extends State<HomeScreen> {
     _cargarUsuario();
 
 
-    Timer.periodic(const Duration(seconds: 1), (timer) {
-      _incrementCounter();
-    });
+    // Timer.periodic(const Duration(seconds: 1), (timer) {
+    //   _incrementCounter();
+    // });
   }
 
 
@@ -106,17 +106,19 @@ class _HomeScreenState extends State<HomeScreen> {
           kDepilColor
       ),
       NavigationList(
-        "Promociones",
-        const ClientListScreen(),
-        true,
-        Badge(
-          label: Text('$counter'),
-          child: const Icon(Symbols.featured_seasonal_and_gifts_rounded),
-        ),
-        Badge(
-          label: Text('$counter'),
-          child: const Icon(Symbols.featured_seasonal_and_gifts_rounded, fill: 1, color: Color(0xff0e2443)),
-        ),
+          "Promociones",
+          const ClientListScreen(),
+          true,
+          counter > 0 ? Badge(
+            label: Text('$counter'),
+            child: const Icon(Symbols.featured_seasonal_and_gifts_rounded),
+          ) : Icon(Symbols.featured_seasonal_and_gifts_rounded),
+
+          counter > 0 ? Badge(
+            label: Text('$counter'),
+            child: const Icon(Symbols.featured_seasonal_and_gifts_rounded, fill: 1, color: Color(0xff0e2443)),
+          ) : Icon(Symbols.featured_seasonal_and_gifts_rounded),
+
           const Color(0xff80b1ff)
       ),
     ];

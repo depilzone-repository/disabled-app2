@@ -56,8 +56,8 @@ class _QrClienteScreenState extends State<QrClienteScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-              Text("Mi código Qr", style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500)),
-              SizedBox(height: 20.0),
+              const Text("Mi código Qr", style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500)),
+              const SizedBox(height: 20.0),
               ClipRRect(
                 borderRadius: BorderRadius.circular(30.0),
                 child: QrImageView(
@@ -68,8 +68,8 @@ class _QrClienteScreenState extends State<QrClienteScreen> {
                   size: 250.0,
                 ),
               ),
-              SizedBox(height: 20.0),
-              Text('Utiliza tu código Qr para asistir a tu cita, obtener promociones y descuentos', textAlign: TextAlign.center, style: TextStyle(color: Colors.white)),
+              const SizedBox(height: 20.0),
+              const Text('Utiliza tu código Qr al asistir a tu cita, obtener promociones y descuentos', textAlign: TextAlign.center, style: TextStyle(color: Colors.white)),
 
         ]
       )

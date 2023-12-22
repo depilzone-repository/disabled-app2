@@ -1,11 +1,13 @@
 class Usuario{
 
-   late final String? nombre;
-   late final String? apellido;
-   final String? correo;
-   final String? hash;
+   late int? id;
+   late String? nombre;
+   late  String? apellido;
+   late String? correo;
+   late String? hash;
 
-  const Usuario({
+   Usuario({
+    this.id,
     this.nombre,
     this.apellido,
     this.correo,
