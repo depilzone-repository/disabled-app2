@@ -6,11 +6,11 @@ import 'package:flutter_auth/NavigationScreens/Home/home_screen.dart';
 import 'package:flutter_auth/NavigationScreens/NavigationList.dart';
 import 'package:flutter_auth/NavigationScreens/ScannerQr/scanner_qr_list_screen.dart';
 import 'package:flutter_auth/Screens/V2/Menu/menu_screen.dart';
-import 'package:flutter_auth/Screens/V2/QrCliente/qr_cliente_screen.dart';
 import 'package:flutter_auth/Services/auth_service.dart';
 import 'package:flutter_auth/Services/shared_preferences.dart';
 import 'package:flutter_auth/constants.dart';
 import 'package:flutter_auth/shared/services/shared_pref.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
 import '../../../shared/models/Usuario.dart';
@@ -96,8 +96,8 @@ class _HomeScreenState extends State<HomeScreen> {
           kDepilColor
       ),
       NavigationList(
-          "Mi QR",
-          QrClienteScreen(),
+          "Eventos QR",
+          const ScannerQrListScreen(),
           true,
           const Icon(Icons.qr_code_rounded),
           const Icon(Icons.qr_code_rounded, fill: 1),
@@ -106,18 +106,18 @@ class _HomeScreenState extends State<HomeScreen> {
           kDepilColor
       ),
       NavigationList(
-          "Promociones",
+          "En espera",
           const ClientListScreen(),
           true,
           counter > 0 ? Badge(
             label: Text('$counter'),
-            child: const Icon(Symbols.featured_seasonal_and_gifts_rounded),
-          ) : Icon(Symbols.featured_seasonal_and_gifts_rounded),
+            child: const Icon(Symbols.schedule_rounded),
+          ) : const Icon(Symbols.schedule_rounded),
 
           counter > 0 ? Badge(
             label: Text('$counter'),
-            child: const Icon(Symbols.featured_seasonal_and_gifts_rounded, fill: 1, color: Color(0xff0e2443)),
-          ) : Icon(Symbols.featured_seasonal_and_gifts_rounded),
+            child: const Icon(Symbols.schedule_rounded, fill: 1, color: Color(0xff0e2443)),
+          ) : const Icon(Symbols.schedule_rounded),
 
           const Color(0xff80b1ff)
       ),
@@ -158,8 +158,8 @@ class _HomeScreenState extends State<HomeScreen> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(defaultPadding, 0, defaultPadding, 0),
                 child: IconButton(
-                  icon: const Icon(Icons.menu),
-                  onPressed: () => {
+                  icon: const Icon(FeatherIcons.menu),
+                  onPressed: ()  {
                     Navigator.push(
                         context,
                         PageRouteBuilder(
@@ -177,7 +177,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             );
                           },
                         )
-                    )
+                    );
                     // // ignore: avoid_print
                     // print('eee')
                   },

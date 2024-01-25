@@ -1,7 +1,10 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_auth/Screens/Splash/splash_screen_sala_de_espera.dart';
+import 'package:flutter_auth/Screens/Splash/splash_screen_v1.dart';
 import 'package:flutter_auth/constants.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 
@@ -25,11 +28,18 @@ class _QrSalaDeEsperaScreenState extends State<QrSalaDeEsperaScreen> {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.transparent,
-        iconTheme: const IconThemeData(
-          color: Colors.white, //OR Colors.red or whatever you want
+        leading: IconButton(
+          // style: IconButton.styleFrom(
+          //   // backgroundColor: Colors.red
+          // ),
+          onPressed: (){
+            Navigator.pop(context);
+          },
+          icon:const Icon(FeatherIcons.chevronLeft, size: 30, color: Colors.white),
+          //replace with our own icon data.
         ),
         title: const Text(
-          'Sala de espera',
+          'Escanear Cita',
           textAlign: TextAlign.left,
           style: TextStyle(
               fontSize: 16,
@@ -87,13 +97,30 @@ class _QrSalaDeEsperaScreenState extends State<QrSalaDeEsperaScreen> {
         result = scanData;
 
         // // ignore: avoid_print
-        print(result?.code);
+        print('Cita:' + result!.code!);
 
         if (result != null){
 
-          ScaffoldMessenger.of(context).showSnackBar(
-             SnackBar(content: Text(result!.code != null ? result!.code!: "aaa"))
+          final qrResult = await Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) =>  SplashScreenSalaDeEspera(idCita: result!.code!))
           );
+
+          // When a BuildContext is used from a StatefulWidget, the mounted property
+          // must be checked after an asynchronous gap.
+          if (!mounted) return;
+
+
+          // After the Selection Screen returns a result, hide any previous snackbars
+          // and show the new result.
+          if(result != null){
+            Navigator.pop(context);
+          }
+
+
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //    SnackBar(content: Text(result!.code != null ? result!.code!: "aaa"))
+          // );
 
           // await showQrDialog(context).then((bool? val) {
           //

@@ -47,6 +47,7 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   provider: ^6.1.1
   qr_flutter: ^4.1.0
+  flutter_feather_icons: ^2.0.0
 #  onesignal_flutter: ^5.0.4
 
 dev_dependencies:

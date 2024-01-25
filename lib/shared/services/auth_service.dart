@@ -4,14 +4,14 @@ import 'dart:io';
 import 'package:flutter_auth/shared/models/Usuario.dart';
 import 'package:http/http.dart' as http;
 
-Future<Usuario> Login(String email, String password) async {
+Future<Usuario> Login(String usuario, String password) async {
 
-  Usuario usuario = Usuario(hash: 'asdfasdfasd-asdfasdfasd-fasdfasdf', correo: 'asdfasdfasdfasdfads');
+  Usuario _usuario = Usuario();
 
-  final msg = jsonEncode({"clave":password,"correo":email});
+  final msg = jsonEncode({"password":password,"usuario":usuario});
 
   dynamic response = await http
-      .post(Uri.parse('https://clinic.depilzone.com.pe:9136/api/client/login'),
+      .post(Uri.parse('https://qa.depilzone.com.pe:5036/api/usuario/login'),
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json',
       },
@@ -22,12 +22,18 @@ Future<Usuario> Login(String email, String password) async {
 
     Map<String, dynamic> result = jsonDecode(response.body);
 
-    if(result['data']['id'] == 0){
-      throw Exception('${result['data']['mensaje']}');
-    }
+    print(result);
 
-    usuario.nombre = '${result['data']['nombres']}';
-    usuario.apellido = '${result['data']['apellidos']}';
+    if(!result['exito']){
+      throw Exception('${result['errorDetalle']}');
+    }
+    _usuario.id = result['response']['idUsuario'];
+    _usuario.nombre = '${result['response']['nombre']}';
+    _usuario.apellido = '${result['response']['apellidos']}';
+    _usuario.idPerfil = result['response']['idPerfil'];
+    _usuario.perfil = '${result['response']['perfil']}';
+    _usuario.idSede = result['response']['idSede'];
+    _usuario.sede = '${result['response']['sede']}';
 
   }
   else {
@@ -36,5 +42,5 @@ Future<Usuario> Login(String email, String password) async {
     throw Exception('Ocurrio un error al obtener tus datos');
   }
 
-  return usuario;
+  return _usuario;
 }

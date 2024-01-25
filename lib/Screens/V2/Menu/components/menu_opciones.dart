@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_auth/Screens/V2/AgendarCita/agendar_cita_screen.dart';
 import 'package:flutter_auth/Screens/V2/ListaCitas/lista_citas_screen.dart';
 import 'package:flutter_auth/constants.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
 import '../../../../Services/shared_preferences.dart';
@@ -25,7 +26,7 @@ class MenuOpciones extends StatelessWidget{
               right: BorderSide.none,
             ),
             initiallyExpanded: true,
-            title: const Text("Opciones", style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14)),
+            title: const Text("Operaciones", style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14)),
             backgroundColor: kGray200Color,
             collapsedBackgroundColor: kGray200Color,
             children: [
@@ -56,8 +57,8 @@ class MenuOpciones extends StatelessWidget{
                               )
                           );
                         },
-                        leading: Icon(Symbols.calendar_add_on_rounded, color: Colors.green[400],size: 34),
-                        title: const Text('Agendar Cita', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: kGray600Color)),
+                        leading: Icon(FeatherIcons.calendar, color: Colors.green[300],size: 30),
+                        title: const Text('Agendar Cita', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: kGray800Color)),
                         trailing: IconButton(
                             onPressed: (){},
                             icon: const Icon(Symbols.chevron_right_rounded, color: kDepilColor,)
@@ -86,8 +87,8 @@ class MenuOpciones extends StatelessWidget{
                               )
                           );
                         },
-                        leading: Icon(Symbols.ballot_rounded, color: Colors.indigo[400],size: 34),
-                        title: const Text('Lista de Citas', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: kGray600Color)),
+                        leading: Icon(FeatherIcons.list, color: Colors.indigo[30],size: 30),
+                        title: const Text('Lista de Citas', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: kGray800Color)),
                         trailing: IconButton(
                             onPressed: (){},
                             icon: const Icon(Symbols.chevron_right_rounded, color: kDepilColor,)
@@ -116,8 +117,8 @@ class MenuOpciones extends StatelessWidget{
                               )
                           );
                         },
-                        leading: Icon(Symbols.person_rounded, color: Colors.blueAccent[400],size: 34),
-                        title: const Text('Agregar Cliente', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: kGray600Color)),
+                        leading: Icon(FeatherIcons.userPlus, color: Colors.blueAccent[300],size: 30),
+                        title: const Text('Agregar Cliente', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: kGray800Color)),
                         trailing: IconButton(
                             onPressed: (){},
                             icon: const Icon(Symbols.chevron_right_rounded, color: kDepilColor,)

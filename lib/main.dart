@@ -1,15 +1,11 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_auth/Screens/V2/Home/home_screen.dart';
 import 'package:flutter_auth/Screens/V2/Splash/splash_screen_v1.dart';
 import 'package:flutter_auth/constants.dart';
 import 'package:flutter_auth/shared/globals/data.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
-import 'Blocs/auth_bloc.dart';
-import 'Screens/V2/Login/login_screen.dart';
+import 'Screens/Login/login_screen.dart';
 import 'shared/services/inicio_service.dart';
 
 
@@ -80,7 +76,7 @@ class MyApp extends StatelessWidget {
               contentPadding:  EdgeInsets.symmetric(
                   horizontal: defaultPadding, vertical: defaultPadding),
                   border:  OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(30)),
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
                       borderSide: BorderSide(
                         color: kGray200Color,
                         width: 2.5,
@@ -89,28 +85,28 @@ class MyApp extends StatelessWidget {
                       ),
                   ),
                   enabledBorder:  OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(30)),
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
                     borderSide: BorderSide(
                         color: kGray200Color,
                         width: 2.5
                     )
                   ),
                   focusedBorder:  OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(30)),
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
                     borderSide: BorderSide(
                         color: kGray300Color,
                         width: 2.5
                     ),
                   ),
                   errorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(30)),
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
                     borderSide: BorderSide(
                         color: kWarningColor,
                         width: 2.5
                     ),
                   ),
                   focusedErrorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(30)),
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
                     borderSide: BorderSide(
                         color: kWarningColor,
                         width: 2.5
@@ -149,7 +145,7 @@ class MyApp extends StatelessWidget {
                   return const SplashScreen();
                 case ConnectionState.done:
                 // Aquí puedes realizar acciones después de que el Future<void> se complete
-                  return appProvider.usuario != null ?  HomeScreen() : const LoginScreen();
+                  return appProvider.usuario != null ?  const HomeScreen() : const LoginScreen();
                 default:
                   if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');

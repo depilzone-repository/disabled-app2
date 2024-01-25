@@ -98,12 +98,12 @@ class _BackgroundState extends State<Background>{
                 padding: const EdgeInsets.fromLTRB(defaultPadding, 0, defaultPadding, 0),
                 child: IconButton(
                     icon: const Icon(Icons.menu),
-                    onPressed: () => {
+                    onPressed: ()  {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                         builder: (context) => const MenuScreen(),
                         ),
-                      )
+                      );
                       // // ignore: avoid_print
                       // print('eee')
                     },

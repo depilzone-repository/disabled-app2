@@ -43,7 +43,7 @@ class _QrClienteScreenState extends State<QrClienteScreen> {
 
     return Container(
       // color: kDepilColor,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [kDepilColor, Colors.indigo],
           stops: [0.25, 0.75],
@@ -52,7 +52,7 @@ class _QrClienteScreenState extends State<QrClienteScreen> {
         )
 
       ),
-      padding: EdgeInsets.all(defaultPadding),
+      padding: const EdgeInsets.all(defaultPadding),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

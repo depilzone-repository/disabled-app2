@@ -44,8 +44,8 @@ showQrDialog(BuildContext context) async {
                                     padding: const EdgeInsets.fromLTRB(0, 0, defaultPadding / 2, 0),
                                     child: IconButton(
                                       icon: const Icon(Icons.close),
-                                      onPressed: () => {
-                                          Navigator.pop(context, null)
+                                      onPressed: () {
+                                          Navigator.pop(context, null);
                                       },
                                       color: Colors.black,
                                     )

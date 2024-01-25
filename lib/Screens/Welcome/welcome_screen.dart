@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../components/background.dart';
 import '../../responsive.dart';
-import 'components/login_signup_btn.dart';
 import 'components/welcome_image.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -19,17 +18,6 @@ class WelcomeScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: WelcomeImage(),
-                ),
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: 450,
-                        child: LoginAndSignupBtn(),
-                      ),
-                    ],
-                  ),
                 ),
               ],
             ),
@@ -55,10 +43,7 @@ class MobileWelcomeScreen extends StatelessWidget {
         Row(
           children: [
             Spacer(),
-            Expanded(
-              flex: 8,
-              child: LoginAndSignupBtn(),
-            ),
+
             Spacer(),
           ],
         ),
