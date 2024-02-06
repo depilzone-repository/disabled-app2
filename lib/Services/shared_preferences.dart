@@ -5,7 +5,6 @@ import '../shared/models/Usuario.dart';
 
 
 
-
 // Función para guardar el estado de inicio de sesión
 Future<void> saveLoginState(bool isLoggedIn) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -32,4 +31,12 @@ Future<Usuario?> getUsuario() async {
   Usuario? usuario = usuarioJson != null ? Usuario.fromJson(usuarioJson) : null;
 
   return usuario;
+}
+
+Future<Auth?> getAuth() async {
+  SharedPref sharedPref = SharedPref();
+  final authJson = await sharedPref.readJson("auth");
+  Auth? auth = authJson != null ? Auth.fromJson(authJson) : null;
+
+  return auth;
 }

@@ -1,9 +1,11 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_auth/components/listview/ListViewSalaEspera.dart';
 import 'package:flutter_auth/constants.dart';
-import 'package:flutter_auth/shared/components/listView/ListViewClienteEspera.dart';
 import 'package:flutter_auth/shared/components/skeletons/list_item.dart';
+
+import '../../shared/models/SalaEspera.dart';
+import '../../shared/services/sala_de_espera_service.dart';
 
 
 class ClientListScreen extends StatefulWidget {
@@ -15,17 +17,26 @@ class ClientListScreen extends StatefulWidget {
 
 class _ClientListScreenState extends State<ClientListScreen> {
 
-  bool loading = true;
+  bool loading = false;
+  late List<SalaEspera> _salaEspera = [];
 
   @override
   void initState() {
-    Timer(const Duration(seconds: 6), () {
-      loading = false;
-      setState(() {});
-    });
+    load();
 
     // TODO: implement initState
     super.initState();
+  }
+
+
+  load() async {
+    setState(() {
+      loading = true;
+    });
+    _salaEspera = await fetchSalaDeEspera();
+    setState(() {
+      loading = false;
+    });
   }
 
 
@@ -49,10 +60,10 @@ class _ClientListScreenState extends State<ClientListScreen> {
               color: Color(0xff0e2443),
             ),
             padding: const EdgeInsets.fromLTRB(defaultPadding, defaultPadding, defaultPadding, defaultPadding),
-            child: const Column(
+            child: Column(
                 children: [
                   Center(child: Text("En espera", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 18),)),
-                  Center(child: Text("0", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 20),)),
+                  Center(child: Text("${_salaEspera.length}", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 20),)),
                 ]
             ),
           ),
@@ -60,7 +71,7 @@ class _ClientListScreenState extends State<ClientListScreen> {
         Expanded(
             child: Container(
                 padding: const EdgeInsets.fromLTRB(defaultPadding, defaultPadding, defaultPadding, 0),
-                child: loading ?  const ListItemSkeleton(controller: null, itemCount: 10) : const ListViewClienteEspera(controller: null)
+                child: loading ?  const ListItemSkeleton(controller: null, itemCount: 10) : ListViewSalaEspera(controller: null, salaEspera: _salaEspera)
             ),
         )
       ],

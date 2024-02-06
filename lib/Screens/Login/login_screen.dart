@@ -5,6 +5,9 @@ import 'package:flutter_auth/shared/services/auth_service.dart';
 import 'package:flutter_auth/shared/services/shared_pref.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
+import '../../shared/models/Usuario.dart';
+import '../V2/Home/home_screen.dart';
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -129,7 +132,6 @@ class _LoginScreenState extends State<LoginScreen>{
                             return 'Es necesario completar este campo.';
                           }
 
-
                           return null;
                         },
                       ),
@@ -235,11 +237,12 @@ class _LoginScreenState extends State<LoginScreen>{
 
 
                                 await Login(_ctrlUser.text, _ctrlPassword.text)
-                                    .then((value) async{
+                                    .then((Sesion value)  {
 
+                                        sharedPref.save('user', value.usuario!.toJson());
+                                        sharedPref.save('auth', value.auth!.toJson());
 
-                                        await sharedPref.save('user', value.toJson());
-                                        Navigator.pushReplacementNamed(context, '/home');
+                                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext ctx) => const HomeScreen()));
                                     })
                                     .catchError((err){
                                       ScaffoldMessenger.of(context).showSnackBar(

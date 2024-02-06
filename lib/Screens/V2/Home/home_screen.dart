@@ -73,6 +73,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> _cargarUsuario() async {
     Usuario? user = await getUsuario();
+    Auth? auth = await getAuth();
+    print(auth!.toJson());
     setState(() {
       currentUser = user!;
     });

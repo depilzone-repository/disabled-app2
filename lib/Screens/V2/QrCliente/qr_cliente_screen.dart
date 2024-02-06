@@ -63,7 +63,7 @@ class _QrClienteScreenState extends State<QrClienteScreen> {
                 child: QrImageView(
                   padding: const EdgeInsets.all(defaultPadding*2),
                   backgroundColor: Colors.white,
-                  data: '${currentUser?.hash}',
+                  data: '${currentUser?.id}',
                   version: 4,
                   size: 250.0,
                 ),
