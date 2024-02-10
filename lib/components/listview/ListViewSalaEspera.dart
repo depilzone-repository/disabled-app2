@@ -4,6 +4,7 @@ import 'package:flutter_auth/Screens/Home/home_screen.dart';
 import 'package:flutter_auth/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../Screens/Cita/cita_screen.dart';
 import '../../shared/models/SalaEspera.dart';
 
 class ListViewSalaEspera extends StatelessWidget{
@@ -42,8 +43,8 @@ class ListViewSalaEspera extends StatelessWidget{
               allowDrawingOutsideViewBox: false,
             ),
           ),
-          title: Text("${salaEspera[i].nombres} ${salaEspera[i].apellidos}", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, overflow: TextOverflow.ellipsis),),
-          subtitle: Text("${salaEspera[i].estado} ", style: TextStyle(fontSize: 12)),
+          title: Text("${salaEspera[i].nombres} ${salaEspera[i].apellidos}", style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500, overflow: TextOverflow.ellipsis),),
+          subtitle: Text("${salaEspera[i].estado} ", style: const TextStyle(fontSize: 12)),
           trailing: PopupMenuButton<SampleItem>(
             offset: const Offset(0, 40),
             shape: RoundedRectangleBorder(
@@ -53,8 +54,27 @@ class ListViewSalaEspera extends StatelessWidget{
             surfaceTintColor: Colors.transparent,
             itemBuilder: (BuildContext context) => <PopupMenuEntry<SampleItem>>[
               PopupMenuItem<SampleItem>(
-                  onTap: ()  {
-                    showInfoClientDialog(context);
+                  onTap: ()  async {
+
+                    await Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation, secondaryAnimation) => CitaScreen(idCita: salaEspera[i].idCita!),
+                          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                            const begin = Offset(0.0, 1.0);
+                            const end = Offset.zero;
+                            const curve = Curves.ease;
+
+                            var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+                            return SlideTransition(
+                              position: animation.drive(tween),
+                              child: child,
+                            );
+                          },
+                        )
+                    );
+
                   },
                   value: SampleItem.itemOne,
                   child: Row(
@@ -63,7 +83,7 @@ class ListViewSalaEspera extends StatelessWidget{
                         padding: const EdgeInsets.fromLTRB(0, 0, defaultPadding/2, 0),
                         child: const Icon(Icons.info_rounded),
                       ),
-                      const Text("Info")
+                      const Text("Info Cita")
                     ],
                   )
               ),

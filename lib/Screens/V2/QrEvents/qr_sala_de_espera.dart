@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_auth/Screens/Splash/splash_screen_sala_de_espera.dart';
-import 'package:flutter_auth/Screens/Splash/splash_screen_v1.dart';
 import 'package:flutter_auth/constants.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -97,7 +96,7 @@ class _QrSalaDeEsperaScreenState extends State<QrSalaDeEsperaScreen> {
         result = scanData;
 
         // // ignore: avoid_print
-        print('Cita:' + result!.code!);
+        print('Cita:${result!.code!}');
 
         if (result != null){
 

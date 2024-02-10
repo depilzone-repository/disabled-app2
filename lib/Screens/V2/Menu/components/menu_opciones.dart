@@ -133,10 +133,10 @@ class MenuOpciones extends StatelessWidget{
         Container(
             padding: const EdgeInsets.fromLTRB(defaultPadding, defaultPadding*2, defaultPadding, defaultPadding*2),
             child: InkWell(
-                onTap: () async{
+                onTap: () {
 
                   // Guardar el estado de inicio de sesión
-                  await logout();
+                  logout();
 
                   Navigator.pushReplacementNamed(context, '/login');
 

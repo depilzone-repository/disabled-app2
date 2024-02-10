@@ -33,7 +33,17 @@ class _ClientListScreenState extends State<ClientListScreen> {
     setState(() {
       loading = true;
     });
-    _salaEspera = await fetchSalaDeEspera();
+    await fetchSalaDeEspera().then((List<SalaEspera> value) {
+      _salaEspera = value;
+    }).catchError((err){
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('${err.message}'),
+          behavior: SnackBarBehavior.floating,
+          duration: const Duration(seconds: 3),
+        ),
+      );
+    });
     setState(() {
       loading = false;
     });
@@ -62,8 +72,8 @@ class _ClientListScreenState extends State<ClientListScreen> {
             padding: const EdgeInsets.fromLTRB(defaultPadding, defaultPadding, defaultPadding, defaultPadding),
             child: Column(
                 children: [
-                  Center(child: Text("En espera", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 18),)),
-                  Center(child: Text("${_salaEspera.length}", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 20),)),
+                  const Center(child: Text("En espera", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 18),)),
+                  Center(child: Text("${_salaEspera.length}", style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 20),)),
                 ]
             ),
           ),

@@ -7,9 +7,9 @@ import 'package:http/http.dart' as http;
 
 Future<Sesion> Login(String $usuario, String $password) async {
 
-  Sesion _sesion = Sesion();
-  Usuario _usuario = Usuario();
-  Auth _auth = Auth();
+  Sesion sesion = Sesion();
+  Usuario usuario0 = Usuario();
+  Auth auth0 = Auth();
 
   final msg = jsonEncode({"password":$password, "username": $usuario});
 
@@ -36,19 +36,19 @@ Future<Sesion> Login(String $usuario, String $password) async {
   Map<String, dynamic> usuario = result['data']['usuario'];
   Map<String, dynamic> auth = result['data']['auth'];
 
-  _usuario.id = usuario['id'];
-  _usuario.nombre = usuario['nombre'];
-  _usuario.username =  usuario['username'];
-  _usuario.idPerfil =  usuario['idPerfil'];
-  _usuario.perfil =  usuario['perfil'];
-  _usuario.idSede =  usuario['idSede'];
-  _usuario.sede =  usuario['sede'];
+  usuario0.id = usuario['id'];
+  usuario0.nombre = usuario['nombre'];
+  usuario0.username =  usuario['username'];
+  usuario0.idPerfil =  usuario['idPerfil'];
+  usuario0.perfil =  usuario['perfil'];
+  usuario0.idSede =  usuario['idSede'];
+  usuario0.sede =  usuario['sede'];
 
-  _auth.type =  auth['type'];
-  _auth.token =  auth['token'];
+  auth0.type =  auth['type'];
+  auth0.token =  auth['token'];
 
-  _sesion.auth = _auth;
-  _sesion.usuario = _usuario;
+  sesion.auth = auth0;
+  sesion.usuario = usuario0;
 
-  return _sesion;
+  return sesion;
 }

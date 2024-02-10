@@ -17,7 +17,7 @@ Future<List<SalaEspera>> fetchSalaDeEspera() async {
       .get(Uri.parse('https://localhost:44362/v1/sala-de-espera/3/2024-01-25'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': '${auth!.type} ${auth!.token}'
+        'Authorization': '${auth!.type} ${auth.token}'
       });
 
   if (response.statusCode != 200) {
