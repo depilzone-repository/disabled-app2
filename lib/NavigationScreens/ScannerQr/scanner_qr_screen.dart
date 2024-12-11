@@ -188,6 +188,7 @@ class _ScannerQrScreenState extends State<ScannerQrScreen> {
 
               // ignore: avoid_print
               print(val);
+              print('Escaneado');
             }
 
             // formControllers['password']?.text = val ? val : '';

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_auth/Screens/Home/cliente_info_cita.dart';
 import 'package:flutter_auth/Screens/Home/home_screen.dart';
 import 'package:flutter_auth/constants.dart';
+import 'package:flutter_auth/shared/utils/colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../Screens/Cita/cita_screen.dart';
@@ -46,6 +47,7 @@ class ListViewSalaEspera extends StatelessWidget{
           title: Text("${salaEspera[i].nombres} ${salaEspera[i].apellidos}", style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500, overflow: TextOverflow.ellipsis),),
           subtitle: Text("${salaEspera[i].estado} ", style: const TextStyle(fontSize: 12)),
           trailing: PopupMenuButton<SampleItem>(
+            tooltip: 'Ver Opciones',
             offset: const Offset(0, 40),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15)
@@ -93,7 +95,7 @@ class ListViewSalaEspera extends StatelessWidget{
                     children: [
                       Container(
                         padding: const EdgeInsets.fromLTRB(0, 0, defaultPadding/2, 0),
-                        child: const Icon(Icons.front_hand_rounded),
+                        child: Icon(Icons.front_hand_rounded, color: kGray500Color),
                       ),
                       const Text("Atender")
                     ],

@@ -21,6 +21,8 @@ Future<Sesion> Login(String $usuario, String $password) async {
       body: msg
   );
 
+  //print(response.message);
+
   if (response.statusCode != 200) {
     throw Exception('Ocurrio un error al iniciar sesión');
   }

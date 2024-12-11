@@ -49,3 +49,31 @@ Future<List<SalaEspera>> fetchSalaDeEspera() async {
 
   return list;
 }
+
+
+Future<bool> addSalaEspera(int idCita, int idSede) async {
+
+  Auth? auth = await getAuth();
+
+  final msg = jsonEncode({"idCita": idCita, "idSede": idSede});
+
+  dynamic response = await http
+      .post(Uri.parse('https://localhost:44362/v1/sala-de-espera'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': '${auth!.type} ${auth.token}'
+      },
+      body: msg);
+
+  if (response.statusCode != 200) {
+    throw Exception('Error, no se pudo registrar en la sala de espera');
+  }
+
+  Map<String, dynamic> result = json.decode(response.body);
+
+  if (result['status'] != 201) {
+    throw Exception('Error, no se pudo registrar en la sala de espera');
+  }
+
+  return true;
+}

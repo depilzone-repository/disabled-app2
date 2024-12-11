@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_auth/Screens/V2/QrEvents/qr_sala_de_espera.dart';
+import 'package:flutter_auth/Screens/QrEvents/scanner_qr_cita.dart';
 import 'package:flutter_auth/constants.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
@@ -50,7 +50,7 @@ class _ScannerQrListScreenState extends State<ScannerQrListScreen> {
                        Navigator.push(
                           context,
                           PageRouteBuilder(
-                            pageBuilder: (context, animation, secondaryAnimation) => const QrSalaDeEsperaScreen(),
+                            pageBuilder: (context, animation, secondaryAnimation) => const ScannerQrCitaScreen(),
                             transitionsBuilder: (context, animation, secondaryAnimation, child) {
                               const begin = Offset(0.0, 1.0);
                               const end = Offset.zero;

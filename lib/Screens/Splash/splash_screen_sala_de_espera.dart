@@ -3,17 +3,21 @@ import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
 import '../../../shared/globals/data.dart';
-
+import '../../shared/services/sala_de_espera_service.dart';
 
 class SplashScreenSalaDeEspera extends StatelessWidget {
-  final String idCita;
-  const SplashScreenSalaDeEspera({super.key, required this.idCita});
+  final int idCita;
+  final int idSede;
+
+  const SplashScreenSalaDeEspera({super.key, required this.idCita, required this.idSede});
 
   @override
   Widget build(BuildContext context) {
 
-    Future.delayed(const Duration(seconds: 4), (){
+    addSalaEspera(idCita, idSede).then((bool value){
       Navigator.pop(context, true);
+    }).catchError((onError) {
+      print("Ocurrio un error al buscar la cita");
     });
 
     return Consumer<AppProvider>(
